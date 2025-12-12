@@ -1,11 +1,31 @@
-#include "cppunit/TestCase.h"
-#include "cppunit/TestSuite.h"
-#include "cppunit/TestCaller.h"
-#include "cppunit/TestRunner.h"
+#include <cppunit/TestRunner.h>
+#include <cppunit/TestResult.h>
+#include <cppunit/TestResultCollector.h>
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/CompilerOutputter.h>
+#include <cppunit/TextTestProgressListener.h>
+#include <iostream>
+
 
 using namespace CppUnit;
 
-int main(int argc, char** argv){
-    TestRunner runner;
-    // runner.run();
+int main(){
+    CppUnit::TestResult controller;
+
+    CppUnit::TestResultCollector result;
+    controller.addListener(&result);
+
+    CppUnit::TextTestProgressListener progress;
+    controller.addListener(&progress);
+
+    CppUnit::TestRunner runner;
+    runner.addTest(CppUnit::TestFactoryRegistry::getRegistry().makeTest());
+
+    std::cout<<"Running tests"<<std::endl;
+    runner.run(controller);
+
+    CppUnit::CompilerOutputter outputter(&result, std::cerr);
+    outputter.write();
+
+    return result.wasSuccessful() ? 0 : 1;
 }

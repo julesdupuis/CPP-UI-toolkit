@@ -1,20 +1,24 @@
-PROJECT_ROOT=..
-BUILD_DIR=build
+PROJECT_ROOT:=..
+BUILD_DIR:=build
 
-CXX=clang++
-CXXFLAGS=-Wall -Wextra -g -std=c++17 
-LDFLAGS=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+CXX:=clang++
+CXXFLAGS:=-Wall -Wextra -g -std=c++17 
+LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
-all : test.run
+CPP_FILES:=$(wildcard *.cpp)
+OBJ_FILES:=$(CPP_FILES:%.cpp=%.o)
 
-test.run : $(BUILD_DIR)/test.o
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -lcppunit -o $(PROJECT_ROOT)/$@ $^
+# all :
+$(PROJECT_ROOT)/test.run : $(addprefix $(BUILD_DIR)/, $(OBJ_FILES))
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -lcppunit -o $@ $^
 
 $(BUILD_DIR)/%.o : %.cpp | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ -c $^
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 $(BUILD_DIR) :
 	mkdir -p $(BUILD_DIR)
 
 clean :
 	rm -vf $(BUILD_DIR)/*
+
+.PHONY : clean
