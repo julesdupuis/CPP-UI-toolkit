@@ -15,6 +15,7 @@ int main(){
     CppUnit::TestResultCollector result;
     controller.addListener(&result);
 
+    // will print dots to track test progress
     CppUnit::TextTestProgressListener progress;
     controller.addListener(&progress);
 
@@ -24,6 +25,7 @@ int main(){
     std::cout<<"Running tests"<<std::endl;
     runner.run(controller);
 
+    // prints the result of tests
     CppUnit::CompilerOutputter outputter(&result, std::cerr);
     outputter.write();
 
