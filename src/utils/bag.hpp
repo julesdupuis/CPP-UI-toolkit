@@ -2,6 +2,8 @@
 
 #include <functional>
 #include <algorithm>
+#include <initializer_list>
+#include <ostream>
 #include <unordered_set>
 
 template<class type>
@@ -11,6 +13,9 @@ private:
     std::unordered_set<type> content;
 
 public:
+    Bag();
+    Bag(std::initializer_list<type> elements);
+
     // add the element to the bag
     void add(const type& element);
 
@@ -23,7 +28,19 @@ public:
     // get the number of elements in the bag
     int size() const;
 
+    bool operator==(const Bag<type>& other) const;
+
 };
+
+template<class type>
+Bag<type>::Bag():content(){
+
+}
+
+template<class type>
+Bag<type>::Bag(std::initializer_list<type> elements):content(elements){
+
+}
 
 template<class type>
 void Bag<type>::add(const type& element){
@@ -43,4 +60,19 @@ void Bag<type>::foreach(const std::function<void(const type&)>& function) const{
 template<class type>
 int Bag<type>::size() const{
     return content.size();
+}
+
+template<class type>
+bool Bag<type>::operator==(const Bag<type>& other) const{
+    return this->content==other.content;
+}
+
+template<class type>
+std::ostream& operator<<(std::ostream& stream, const Bag<type>& bag){
+    stream << "[";
+    bag.foreach([&stream](const type& element){
+        stream << element << " ";
+    });
+    stream << "]";
+    return stream;
 }
