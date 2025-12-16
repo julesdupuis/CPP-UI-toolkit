@@ -1,6 +1,7 @@
 #pragma once
 
 #include "event/eventDispatcher.hpp"
+#include "player.hpp"
 #include <raylib.h>
 #include <string>
 
@@ -15,10 +16,11 @@ class Game{
 private:
     EventDispatcher dispatcher;
 
-    const int screenWidth;
-    const int screenHeight;
     Camera camera;
     float runTime;
+
+    Player player;
+    PlayerListener PlayerListener;
 
 public:
     // Game();

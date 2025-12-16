@@ -1,9 +1,7 @@
 #include "game.hpp"
-#include <raylib.h>
-#include <string>
 
-Game::Game(int screenWidth, int screenHeight, std::string windowTitle)
-:screenWidth(screenWidth),screenHeight(screenHeight){
+Game::Game(int screenWidth, int screenHeight, std::string windowTitle):
+PlayerListener(this->player, dispatcher){
     InitWindow(screenWidth, screenHeight, windowTitle.c_str());
 
     SetTargetFPS(60);
@@ -37,6 +35,11 @@ void Game::run(){
 
         ClearBackground(LIGHTGRAY);
         DrawText(std::to_string(runTime).c_str(), 10, 10, 10, BLACK);
+
+        const Vector2 playerPos = player.getPos();
+        DrawCircle(playerPos.x, playerPos.y, 10, RED);
+        DrawText(std::to_string(playerPos.x).c_str(), 10, 20, 10, BLACK);
+        DrawText(std::to_string(playerPos.y).c_str(), 10, 30, 10, BLACK);
 
     EndDrawing();
 }

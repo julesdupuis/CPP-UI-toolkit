@@ -7,12 +7,12 @@
 class InputListener : public Listener{
 
 private:
-    std::function<bool(int)> inputTest;
+    const std::function<bool(int)> inputTest;
     const int inputCode;
-    const Listener& listener;
+    const std::function<void()> action;
 
 public:
-    InputListener(const std::function<bool(int)>& inputTest, const int inputCode, const Listener& listener);
+    InputListener(const std::function<bool(int)>& inputTest, const int inputCode, const std::function<void()> action);
 
     virtual void onEvent(Event& e) const override;
 

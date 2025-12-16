@@ -4,19 +4,19 @@
 #include "event.hpp"
 #include "listener.hpp"
 
-template class Bag<Listener>;
+template class Bag<Listener*>;
 
 class Observable{
 
 private:
-    Bag<Listener> subscribers;
+    Bag<Listener*> subscribers;
 
 public:
     Observable();
     ~Observable();
 
-    void subscribe(const Listener& listener);
-    void unsubscribe(const Listener& listener);
+    void subscribe(Listener* listener);
+    void unsubscribe(Listener* listener);
 
     void fireEvent(Event& e) const;
 

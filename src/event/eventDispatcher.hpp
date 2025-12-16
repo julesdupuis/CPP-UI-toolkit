@@ -6,15 +6,12 @@
 class EventDispatcher{
 
 private:
-    Bag<Listener> eventCatchers;
+    Bag<Listener*> eventCatchers;
 
 public:
-    EventDispatcher();
-    ~EventDispatcher();
-
     void dispatch();
 
-    void addInputListener(const Listener& listener);
-    void removeInputListener(const Listener& listener);
+    void addInputListener(Listener* listener);
+    void removeInputListener(Listener* listener);
 
 };

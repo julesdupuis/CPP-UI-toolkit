@@ -7,7 +7,7 @@
 class Listener{
 
 public:
-    virtual void onEvent(Event& e) const{};
+    virtual void onEvent(Event& e) const=0;
 
     virtual bool operator==(const Listener& other) const{
         return this==&other;

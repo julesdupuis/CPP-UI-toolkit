@@ -4,7 +4,7 @@ CXX:=clang++
 CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD
 LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
-SRC_FILES:=$(addprefix $(BUILD_DIR)/, main.o game.o eventDispatcher.o observable.o)
+SRC_FILES:=$(addprefix $(BUILD_DIR)/, main.o game.o eventDispatcher.o observable.o player.o inputListener.o)
 TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, bag.o)
 TEST_OBJ_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
