@@ -12,9 +12,6 @@ private:
     Bag<Listener*> subscribers;
 
 public:
-    Observable();
-    ~Observable();
-
     void subscribe(Listener* listener);
     void unsubscribe(Listener* listener);
 

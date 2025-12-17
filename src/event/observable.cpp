@@ -1,13 +1,5 @@
 #include "observable.hpp"
 
-Observable::Observable():subscribers(){
-
-}
-
-Observable::~Observable(){
-
-}
-
 void Observable::subscribe(Listener* listener){
     subscribers.add(listener);
 }

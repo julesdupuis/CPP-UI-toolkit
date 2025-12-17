@@ -2,7 +2,7 @@
 #include "event/eventDispatcher.hpp"
 #include <raylib.h>
 
-Player::Player():position({0,0}),speed(100){
+Player::Player(Vector2 position, float speed):position(position),speed(speed){
 
 }
 

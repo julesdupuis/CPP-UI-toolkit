@@ -1,12 +1,9 @@
 #pragma once
 
 #include "listener.hpp"
-#include "../utils/bag.hpp"
+#include "observable.hpp"
 
-class EventDispatcher{
-
-private:
-    Bag<Listener*> eventCatchers;
+class EventDispatcher : private Observable{
 
 public:
     void dispatch();

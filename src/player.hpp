@@ -11,7 +11,7 @@ private:
     float speed;
 
 public:
-    Player();
+    Player(Vector2 position = {0, 0}, float speed = 100);
     void move(int x, int y);
     const Vector2 getPos() const;
     float getSpeed() const;

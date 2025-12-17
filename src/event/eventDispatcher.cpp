@@ -3,16 +3,14 @@
 #include <raylib.h>
 
 void EventDispatcher::dispatch(){
-    eventCatchers.foreach([](Listener* listener){
-        Event e;
-        listener->onEvent(e);
-    });
+    Event e;
+    fireEvent(e);
 }
 
 void EventDispatcher::addInputListener(Listener* listener){
-    eventCatchers.add(listener);
+    subscribe(listener);
 }
 
 void EventDispatcher::removeInputListener(Listener* listener){
-    eventCatchers.remove(listener);
+    unsubscribe(listener);
 }
