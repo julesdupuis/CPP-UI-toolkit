@@ -4,12 +4,12 @@ CXX:=clang++
 CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD
 LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
-SRC_FILES:=$(addprefix $(BUILD_DIR)/, main.o game.o eventDispatcher.o player.o inputListener.o)
+SRC_FILES:=$(addprefix $(BUILD_DIR)/, main.o game.o eventDispatcher.o player.o inputListener.o button.o drawable.o component.o)
 TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, bag.o observable.o)
 TEST_OBJ_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
 DEPENDENCIES:=$(wildcard build/*.d)
-VPATH=test src src/utils src/event
+VPATH=test src src/utils src/event src/component
 
 all : run
 

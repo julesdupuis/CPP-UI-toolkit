@@ -1,5 +1,6 @@
 #pragma once
 
+#include "component/button.hpp"
 #include "event/eventDispatcher.hpp"
 #include "player.hpp"
 #include <raylib.h>
@@ -21,6 +22,8 @@ private:
 
     Player player;
     PlayerListener PlayerListener;
+
+    Button button;
 
 public:
     // Game();

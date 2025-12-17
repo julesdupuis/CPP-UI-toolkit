@@ -1,7 +1,9 @@
 #include "game.hpp"
+#include "component/button.hpp"
 
 Game::Game(int screenWidth, int screenHeight, std::string windowTitle):
-PlayerListener(this->player, dispatcher){
+PlayerListener(this->player, dispatcher),
+button("test button"){
     InitWindow(screenWidth, screenHeight, windowTitle.c_str());
 
     SetTargetFPS(60);
@@ -15,6 +17,9 @@ PlayerListener(this->player, dispatcher){
     camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
 
     runTime = 0;
+
+    button.setPos({500, 200});
+    button.setSize({1000, 100});
 }
 
 Game::~Game(){
@@ -40,6 +45,8 @@ void Game::run(){
         DrawCircle(playerPos.x, playerPos.y, 10, RED);
         DrawText(std::to_string(playerPos.x).c_str(), 10, 20, 10, BLACK);
         DrawText(std::to_string(playerPos.y).c_str(), 10, 30, 10, BLACK);
+
+        button.draw();
 
     EndDrawing();
 }
