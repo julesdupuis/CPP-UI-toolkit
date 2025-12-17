@@ -4,16 +4,22 @@ CXX:=clang++
 CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD
 LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
-SRC_FILES:=$(addprefix $(BUILD_DIR)/, main.o game.o eventDispatcher.o player.o inputListener.o button.o drawable.o component.o)
+SRC_MAIN_FILES:=main.o game.o player.o
+SRC_EVENT_FILES:=eventDispatcher.o inputListener.o
+SRC_COMPONENT_FILES:=button.o drawable.o component.o
+
+SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES))
+
 TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, bag.o observable.o)
-TEST_OBJ_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
+
+TEST_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
 DEPENDENCIES:=$(wildcard build/*.d)
 VPATH=test src src/utils src/event src/component
 
 all : run
 
-test.run : $(TEST_OBJ_FILES) $(TEST_SRC_FILES) | $(BUILD_DIR)
+test.run : $(TEST_FILES) $(TEST_SRC_FILES) | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -lcppunit -o $@ $^
 
 main.run : $(SRC_FILES) $(TEST_SRC_FILES) | $(BUILD_DIR)
