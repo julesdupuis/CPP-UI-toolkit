@@ -7,10 +7,10 @@ void EventDispatcher::dispatch(){
     fireEvent(e);
 }
 
-void EventDispatcher::addInputListener(Listener* listener){
+void EventDispatcher::addInputListener(Listener& listener){
     subscribe(listener);
 }
 
-void EventDispatcher::removeInputListener(Listener* listener){
+void EventDispatcher::removeInputListener(Listener& listener){
     unsubscribe(listener);
 }

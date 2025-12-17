@@ -12,8 +12,8 @@ private:
     Bag<Listener*> subscribers;
 
 public:
-    void subscribe(Listener* listener);
-    void unsubscribe(Listener* listener);
+    void subscribe(Listener& listener);
+    void unsubscribe(Listener& listener);
 
     void fireEvent(Event& e) const;
 

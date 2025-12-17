@@ -8,7 +8,7 @@ class EventDispatcher : private Observable{
 public:
     void dispatch();
 
-    void addInputListener(Listener* listener);
-    void removeInputListener(Listener* listener);
+    void addInputListener(Listener& listener);
+    void removeInputListener(Listener& listener);
 
 };

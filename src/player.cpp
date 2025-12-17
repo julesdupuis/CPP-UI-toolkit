@@ -33,15 +33,15 @@ leftListener(IsKeyDown, KeyboardKey::KEY_LEFT, [this](){
 rightListener(IsKeyDown, KeyboardKey::KEY_RIGHT, [this](){
     this->player.move(this->player.getSpeed(), 0);
 }){
-    dispatcher.addInputListener(&upListener);
-    dispatcher.addInputListener(&downListener);
-    dispatcher.addInputListener(&leftListener);
-    dispatcher.addInputListener(&rightListener);
+    dispatcher.addInputListener(upListener);
+    dispatcher.addInputListener(downListener);
+    dispatcher.addInputListener(leftListener);
+    dispatcher.addInputListener(rightListener);
 }
 
 PlayerListener::~PlayerListener(){
-    dispatcher.removeInputListener(&upListener);
-    dispatcher.removeInputListener(&downListener);
-    dispatcher.removeInputListener(&leftListener);
-    dispatcher.removeInputListener(&rightListener);
+    dispatcher.removeInputListener(upListener);
+    dispatcher.removeInputListener(downListener);
+    dispatcher.removeInputListener(leftListener);
+    dispatcher.removeInputListener(rightListener);
 }
