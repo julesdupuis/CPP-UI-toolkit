@@ -1,10 +1,5 @@
 #include "bagTest.hpp"
 #include <cppunit/TestAssert.h>
-#include <string>
-
-std::ostream& operator<<(std::ostream& stream, const Dummyclass& dummy){
-    return stream << dummy.getName();
-}
 
 void BagTest::testIntInit(){
     Bag<int> bagA({5,7,74,12});
