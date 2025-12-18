@@ -52,12 +52,16 @@ package event{
     }
     class ActiveVariable<type>{
         -variable : type
+        +get() : type
+        +set(type)
+        +addListener(Listener&)
+        +removeListener(Listener&)
     }
 }
 
 Listener <|.. InputListener : +
 Observable <|-- EventDispatcher : -
-Observable <|-- ActiveVariable : +
+Observable <|-- ActiveVariable : -
 Observable --> Bag : listeners : Bag<Listener*>
 
 package component{

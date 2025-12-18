@@ -23,6 +23,7 @@ public:
     friend std::ostream& operator<<(std::ostream& stream, const ActiveVariable<type>& activeVariable);
 
     const type& get() const;
+    void set(const type& var);
 
     void addListener(Listener& listener);
     void removeListener(Listener& listener);
@@ -38,9 +39,7 @@ ActiveVariable<type>& ActiveVariable<type>::operator=(const type& var){
     if(variable == var){
         return *this;
     }
-    variable = var;
-    Event e;
-    fireEvent(e);
+    set(var);
 
     return *this;
 }
@@ -50,9 +49,7 @@ ActiveVariable<type>& ActiveVariable<type>::operator=(type&& var){
     if(variable == var){
         return *this;
     }
-    variable = var;
-    Event e;
-    fireEvent(e);
+    set(var);
 
     return *this;
 }
@@ -81,6 +78,13 @@ std::ostream& operator<<(std::ostream& stream, const ActiveVariable<type>& activ
 template<class type>
 const type& ActiveVariable<type>::get() const{
     return variable;
+}
+
+template<class type>
+void ActiveVariable<type>::set(const type& var){
+    variable = var;
+    Event e;
+    fireEvent(e);
 }
 
 template<class type>
