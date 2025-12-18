@@ -19,16 +19,20 @@ float Player::getSpeed() const{
 
 PlayerListener::PlayerListener(Player& player):
 player(player),
-upListener(IsKeyDown, KeyboardKey::KEY_UP, [this](){
+upListener([]{return IsKeyDown(KeyboardKey::KEY_UP);},
+[this](){
     this->player.move(0, -this->player.getSpeed());
 }),
-downListener(IsKeyDown, KeyboardKey::KEY_DOWN, [this](){
+downListener([]{return IsKeyDown(KeyboardKey::KEY_DOWN);},
+[this](){
     this->player.move(0, this->player.getSpeed());
 }),
-leftListener(IsKeyDown, KeyboardKey::KEY_LEFT, [this](){
+leftListener([]{return IsKeyDown(KeyboardKey::KEY_LEFT);},
+[this](){
     this->player.move(-this->player.getSpeed(), 0);
 }),
-rightListener(IsKeyDown, KeyboardKey::KEY_RIGHT, [this](){
+rightListener([]{return IsKeyDown(KeyboardKey::KEY_RIGHT);},
+[this](){
     this->player.move(this->player.getSpeed(), 0);
 }){
 

@@ -1,11 +1,9 @@
 #include "game.hpp"
-#include "event/eventDispatcher.hpp"
 #include "utils/singleton.hpp"
 
 Game::Game(int screenWidth, int screenHeight, std::string windowTitle):
 dispatcher(Singleton<EventDispatcher>::instance()),
-playerListener(this->player),
-button("test button"){
+playerListener(this->player){
     InitWindow(screenWidth, screenHeight, windowTitle.c_str());
 
     SetTargetFPS(60);
@@ -22,6 +20,7 @@ button("test button"){
 
     button.setPos({100, 200});
     button.setSize({200, 100});
+    button.setText("test button");
 }
 
 Game::~Game(){

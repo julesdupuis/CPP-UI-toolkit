@@ -2,6 +2,10 @@
 
 skinparam classAttributeIconSize 0
 
+note as mainNote
+    Multiplicities are 1:1 by default
+end note
+
 () main
 class Game{
 
@@ -54,8 +58,7 @@ package event{
         +fireEvent(Event&)
     }
     class InputListener{
-        {field} -inputTest : function<bool(int)>
-        -inputCode : int
+        {field} -inputTest : function<bool()>
         {field} -action : function<void()>
     }
     class EventDispatcher{
@@ -76,6 +79,9 @@ Listener <|.. InputListener : +
 Observable <|-- EventDispatcher : -
 Observable <|-- ActiveVariable : -
 Observable --> BagListener : listeners
+
+InputListener --> EventDispatcher
+Game --> EventDispatcher
 
 package component{
     class Component{

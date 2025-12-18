@@ -1,10 +1,9 @@
 #include "inputListener.hpp"
-#include "eventDispatcher.hpp"
 #include "../utils/singleton.hpp"
 
-InputListener::InputListener(const std::function<bool(int)>& inputTest, const int inputCode, const std::function<void()> action):
+InputListener::InputListener(const std::function<bool()>& inputTest, const std::function<void()> action):
 dispatcher(Singleton<EventDispatcher>::instance()),
-inputTest(inputTest),inputCode(inputCode),action(action){
+inputTest(inputTest),action(action){
     dispatcher.addInputListener(*this);
 }
 
@@ -13,7 +12,7 @@ InputListener::~InputListener(){
 }
 
 void InputListener::onEvent(Event&) const{
-    if(inputTest(inputCode)){
+    if(inputTest()){
         action();
     }
 }
