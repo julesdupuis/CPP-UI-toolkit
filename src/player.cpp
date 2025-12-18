@@ -1,6 +1,4 @@
 #include "player.hpp"
-#include "event/eventDispatcher.hpp"
-#include <raylib.h>
 
 Player::Player(Vector2 position, float speed):position(position),speed(speed){
 
@@ -19,8 +17,8 @@ float Player::getSpeed() const{
     return speed;
 }
 
-PlayerListener::PlayerListener(Player& player, EventDispatcher& dispatcher):
-player(player), dispatcher(dispatcher),
+PlayerListener::PlayerListener(Player& player):
+player(player),
 upListener(IsKeyDown, KeyboardKey::KEY_UP, [this](){
     this->player.move(0, -this->player.getSpeed());
 }),
@@ -33,15 +31,5 @@ leftListener(IsKeyDown, KeyboardKey::KEY_LEFT, [this](){
 rightListener(IsKeyDown, KeyboardKey::KEY_RIGHT, [this](){
     this->player.move(this->player.getSpeed(), 0);
 }){
-    dispatcher.addInputListener(upListener);
-    dispatcher.addInputListener(downListener);
-    dispatcher.addInputListener(leftListener);
-    dispatcher.addInputListener(rightListener);
-}
 
-PlayerListener::~PlayerListener(){
-    dispatcher.removeInputListener(upListener);
-    dispatcher.removeInputListener(downListener);
-    dispatcher.removeInputListener(leftListener);
-    dispatcher.removeInputListener(rightListener);
 }

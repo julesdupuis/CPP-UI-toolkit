@@ -1,6 +1,5 @@
 #pragma once
 
-#include "event/eventDispatcher.hpp"
 #include "event/inputListener.hpp"
 #include <raylib.h>
 
@@ -22,14 +21,12 @@ class PlayerListener{
 
 private:
     Player& player;
-    EventDispatcher& dispatcher;
     InputListener upListener;
     InputListener downListener;
     InputListener leftListener;
     InputListener rightListener;
 
 public:
-    PlayerListener(Player& player, EventDispatcher& dispatcher);
-    ~PlayerListener();
+    PlayerListener(Player& player);
 
 };

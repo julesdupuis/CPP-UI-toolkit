@@ -1,7 +1,11 @@
+#include "event/eventDispatcher.hpp"
 #include "game.hpp"
 #include "raylib.h"
+#include "utils/singleton.hpp"
 
 int main(void){
+    EventDispatcher dispatcher;
+    Singleton<EventDispatcher>::create(dispatcher);
     Game game;
 
     // Main game loop

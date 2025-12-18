@@ -28,7 +28,20 @@ package utils{
         +remove(type)
         +foreach(function<void(type)>&)
     }
+    class "Bag<Listener*>" as BagListener <<(T,LightBlue)>>
+
+    class Singleton<type>{
+        {static} -object : type&
+        {static} -initialised : bool
+        -Singleton()
+        {static} +create(const type&)
+        {static} +instance() : const type&
+    }
+    class "Singleton<EventDispatcher>" as SingletonEventDispatcher <<(T,LightBlue)>>
 }
+
+BagListener ..|> Bag
+SingletonEventDispatcher ..|> Singleton
 
 package event{
     interface Event
@@ -62,7 +75,7 @@ package event{
 Listener <|.. InputListener : +
 Observable <|-- EventDispatcher : -
 Observable <|-- ActiveVariable : -
-Observable --> Bag : listeners : Bag<Listener*>
+Observable --> BagListener : listeners
 
 package component{
     class Component{
@@ -93,7 +106,7 @@ package layout{
 
 PlayerListener --> "4" InputListener
 PlayerListener --> Player
-Game --> EventDispatcher
+Game --> SingletonEventDispatcher
 Game --> Button
 
 @enduml

@@ -15,13 +15,13 @@
 class Game{
 
 private:
-    EventDispatcher dispatcher;
+    EventDispatcher& dispatcher;
 
     Camera camera;
     float runTime;
 
     Player player;
-    PlayerListener PlayerListener;
+    PlayerListener playerListener;
 
     Button button;
 

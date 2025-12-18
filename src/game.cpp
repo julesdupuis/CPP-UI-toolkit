@@ -1,8 +1,10 @@
 #include "game.hpp"
-#include "component/button.hpp"
+#include "event/eventDispatcher.hpp"
+#include "utils/singleton.hpp"
 
 Game::Game(int screenWidth, int screenHeight, std::string windowTitle):
-PlayerListener(this->player, dispatcher),
+dispatcher(Singleton<EventDispatcher>::instance()),
+playerListener(this->player),
 button("test button"){
     InitWindow(screenWidth, screenHeight, windowTitle.c_str());
 
@@ -18,8 +20,8 @@ button("test button"){
 
     runTime = 0;
 
-    button.setPos({500, 200});
-    button.setSize({1000, 100});
+    button.setPos({100, 200});
+    button.setSize({200, 100});
 }
 
 Game::~Game(){
