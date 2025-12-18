@@ -10,7 +10,7 @@ SRC_COMPONENT_FILES:=button.o drawable.o component.o
 
 SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES))
 
-TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, bag.o observable.o)
+TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o)
 
 TEST_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
