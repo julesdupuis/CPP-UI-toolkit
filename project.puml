@@ -1,0 +1,95 @@
+@startuml project
+
+skinparam classAttributeIconSize 0
+
+() main
+class Game{
+
+}
+class Player{
+    -position : Vector2
+    -speed : float
+    +move(Vector2)
+    +getPos() : Vector2
+    +getSpeed() : float
+}
+class PlayerListener{
+
+}
+
+main -> Game : calls
+Game --> Player
+Game --> PlayerListener
+
+package utils{
+    class Bag<type>{
+        -content : unordered_set<type>
+        +add(type)
+        +remove(type)
+        +foreach(function<void(type)>&)
+    }
+}
+
+package event{
+    interface Event
+    interface Listener{
+        +onEvent(Event&)
+    }
+    class Observable{
+        +subscribe(Listener&)
+        +unsubscribe(Listener&)
+        +fireEvent(Event&)
+    }
+    class InputListener{
+        {field} -inputTest : function<bool(int)>
+        -inputCode : int
+        {field} -action : function<void()>
+    }
+    class EventDispatcher{
+        +dispatch()
+        +addInputListener(Listener&)
+        +removeInputListener(Listener&)
+    }
+    class ActiveVariable<type>{
+        -variable : type
+    }
+}
+
+Listener <|.. InputListener : +
+Observable <|-- EventDispatcher : -
+Observable <|-- ActiveVariable : +
+Observable --> Bag : listeners : Bag<Listener*>
+
+package component{
+    class Component{
+        -position : Vector2
+        -size : Vector2
+        +getPos() : Vector2
+        +setPos(Vector2)
+        +getSize() : Vector2
+        +setSize(Vector2)
+    }
+    class Drawable{
+        -shown : bool
+        +draw()
+        +show(bool)
+    }
+    class Button{
+        -text : string
+    }
+}
+
+Component <|-- Drawable : +
+Drawable <|-- Button : +
+Button --> Observable : actionObservable
+
+package layout{
+
+}
+
+PlayerListener --> "4" InputListener
+PlayerListener --> Player
+Game --> EventDispatcher
+Game --> Button
+
+@enduml
