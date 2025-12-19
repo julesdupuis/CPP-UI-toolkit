@@ -4,11 +4,13 @@ skinparam classAttributeIconSize 0
 
 note as mainNote
     Multiplicities are 1:1 by default
+    T stereotypes are template instantiations
 end note
 
 () main
 class Game{
-
+    +init()
+    +run()
 }
 class Player{
     -position : Vector2
@@ -108,17 +110,50 @@ package component{
     class Action{
         -name : string
     }
+    class Container{
+        +add(Component&, int constraint)
+        +remove(Component&, int constraint)
+        +layout()
+    }
+    class Panel{
+
+    }
 }
 
 Component <|-- Drawable : +
 Drawable <|-- Button : +
 Observable <|-- Action : +
+Drawable <|-- Container : +
+Container <|-- Panel : +
+
 Button --> Action
 Button --> "2" InputListener
 
 package layout{
+    interface LayoutManager{
+        +addComponent(Component, int constraint)
+        +removeComponent(Component, int constraint)
+    }
+    abstract class OrientedLayout{
+        -vertical : bool
+        +isVertical() : bool
+        +setVertical(bool)
+    }
+    class BorderLayout{
 
+    }
+    class StackLayout{
+
+    }
 }
+
+LayoutManager <|-- OrientedLayout : ~
+OrientedLayout <|.. BorderLayout : -
+OrientedLayout <|.. StackLayout : -
+
+Container --> LayoutManager
+BorderLayout --> "3" Component
+StackLayout --> "*" Component
 
 PlayerListener --> "4" InputListener
 PlayerListener --> Player

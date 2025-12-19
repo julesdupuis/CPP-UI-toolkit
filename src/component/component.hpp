@@ -9,7 +9,7 @@ private:
     Vector2 size;
 
 public:
-    Component(Vector2 pos = {10, 10}, Vector2 size = {10, 10});
+    Component(Vector2 pos = {0, 0}, Vector2 size = {10, 10});
 
     Vector2 getPos() const;
     void setPos(Vector2 pos);

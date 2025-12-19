@@ -15,7 +15,7 @@ TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o)
 TEST_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
 DEPENDENCIES:=$(wildcard build/*.d)
-VPATH=test src src/utils src/event src/component
+VPATH=test src src/utils src/event src/component src/layout
 
 all : run
 
