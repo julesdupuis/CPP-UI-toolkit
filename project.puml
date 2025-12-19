@@ -60,6 +60,7 @@ package event{
     class InputListener{
         {field} -inputTest : function<bool()>
         {field} -action : function<void()>
+        {field} -actionElse : function<void()>
     }
     class EventDispatcher{
         +dispatch()
@@ -99,12 +100,21 @@ package component{
     }
     class Button{
         -text : string
+        -state : State
+        -isMouseInside() : bool
+        +setText(string)
+        +setAction(Action)
+    }
+    class Action{
+        -name : string
     }
 }
 
 Component <|-- Drawable : +
 Drawable <|-- Button : +
-Button --> Observable : actionObservable
+Observable <|-- Action : +
+Button --> Action
+Button --> "2" InputListener
 
 package layout{
 

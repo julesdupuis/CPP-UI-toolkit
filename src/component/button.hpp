@@ -12,9 +12,14 @@ private:
     std::string text;
     Action action;
 
-    bool isHovered = false;
+    enum class State{
+        IDLE,
+        HOVERED,
+        PRESSED,
+        PRESSED_OUT,
+    };
+    State state = State::IDLE;
     InputListener hoverListener;
-    bool isPressed = false;
     InputListener pressListener;
 
     bool isMouseInside();

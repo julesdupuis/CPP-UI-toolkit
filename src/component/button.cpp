@@ -1,13 +1,55 @@
 #include "button.hpp"
+#include <raylib.h>
 
 Button::Button():
 hoverListener([this]{return isMouseInside();},
 [this]{
-    isHovered = true;
-}),
-pressListener([this]{return isMouseInside() && IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
+    switch(state){
+    case State::IDLE:
+        state = State::HOVERED;
+        break;
+    case State::PRESSED_OUT:
+        state = State::PRESSED;
+        break;
+    default:
+        break;
+    }
+},
 [this]{
-    isPressed = true;
+    switch(state){
+    case State::HOVERED:
+        state = State::IDLE;
+        break;
+    case State::PRESSED:
+        state = State::PRESSED_OUT;
+        break;
+    default:
+        break;
+    }
+}),
+pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
+[this]{
+    switch(state){
+    case State::HOVERED:
+        state = State::PRESSED;
+        break;
+    default:
+        break;
+    }
+},
+[this]{
+    switch(state){
+    case State::PRESSED:
+        Event e;
+        action.fireEvent(e);
+        state = State::HOVERED;
+        break;
+    case State::PRESSED_OUT:
+        state = State::IDLE;
+        break;
+    default:
+        break;
+    }
 }){
 
 }
@@ -25,12 +67,23 @@ void Button::setAction(Action& action){
 }
 
 void Button::draw() const{
-    Color buttonColor = SKYBLUE;
-    if(isHovered){
+    Color buttonColor;
+    switch(state){
+    case State::IDLE:
+        buttonColor = SKYBLUE;
+        break;
+    case State::HOVERED:
         buttonColor = LIME;
-    }
-    if(isPressed){
+        break;
+    case State::PRESSED:
         buttonColor = RED;
+        break;
+    case State::PRESSED_OUT:
+        buttonColor = ORANGE;
+        break;
+    default:
+        buttonColor = BLANK;
+        break;
     }
     DrawRectangleV(getPos(), getSize(), buttonColor);
 
