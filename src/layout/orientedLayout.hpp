@@ -2,14 +2,16 @@
 
 #include "layoutManager.hpp"
 
-class OrientedLayout : protected LayoutManager{
+class OrientedLayout : public LayoutManager{
 
 private:
     bool vertical;
 
-public:
+protected:
     OrientedLayout(bool vertical);
-    ~OrientedLayout()=0;
+
+public:
+    // virtual ~OrientedLayout()=0;
 
     bool isVertical() const;
     void setVertical(bool isVertical);

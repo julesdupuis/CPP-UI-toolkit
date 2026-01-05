@@ -8,6 +8,6 @@ private:
 
 
 public:
-
+    Panel(LayoutManager& layoutManager);
 
 };

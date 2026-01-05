@@ -6,8 +6,11 @@ class LayoutManager{
 
 private:
 
+protected:
+    LayoutManager();
+
 public:
-    virtual ~LayoutManager()=0;
+    // virtual ~LayoutManager()=0;
 
     virtual void addComponent(Component& component, int constraint);
     virtual void removeComponent(Component& component, int constraint);

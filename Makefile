@@ -4,11 +4,12 @@ CXX:=clang++
 CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD
 LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
-SRC_MAIN_FILES:=main.o game.o player.o
+SRC_MAIN_FILES:=main.o player.o
 SRC_EVENT_FILES:=eventDispatcher.o inputListener.o
-SRC_COMPONENT_FILES:=button.o drawable.o component.o action.o
+SRC_COMPONENT_FILES:=button.o drawable.o component.o action.o window.o panel.o container.o
+SRC_LAYOUT_FILES:=layoutManager.o orientedLayout.o borderLayout.o stackLayout.o
 
-SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES))
+SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES) $(SRC_LAYOUT_FILES))
 
 TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o)
 

@@ -1,21 +1,19 @@
 #pragma once
 
-#include "orientedLayout.hpp"
+#include "layoutManager.hpp"
 #include <vector>
 
-class StackLayout : public OrientedLayout{
+class LayeredLayout : private LayoutManager{
 
 private:
     std::vector<Component> content;
 
 public:
-    StackLayout(bool vertical = true);
+    LayeredLayout();
 
     virtual void addComponent(Component& component, int constraint) override;
     virtual void removeComponent(Component& component, int constraint) override;
 
     virtual void layout(Component& managed) override;
-
-    void setVertical(bool isVertical = false);
 
 };

@@ -2,7 +2,7 @@
 
 #include "orientedLayout.hpp"
 
-class BorderLayout : private OrientedLayout{
+class BorderLayout : public OrientedLayout{
 
 public:
     enum class Constraints{

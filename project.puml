@@ -8,10 +8,6 @@ note as mainNote
 end note
 
 () main
-class Game{
-    +init()
-    +run()
-}
 class Player{
     -position : Vector2
     -speed : float
@@ -23,9 +19,8 @@ class PlayerListener{
 
 }
 
-main -> Game : calls
-Game --> Player
-Game --> PlayerListener
+main --> Player
+main --> PlayerListener
 
 package utils{
     class Bag<type>{
@@ -84,7 +79,6 @@ Observable <|-- ActiveVariable : -
 Observable --> BagListener : listeners
 
 InputListener --> EventDispatcher
-Game --> EventDispatcher
 
 package component{
     class Component{
@@ -118,6 +112,13 @@ package component{
     class Panel{
 
     }
+    class Window{
+        -size : Vector2
+        -title : String
+        +setScreenSize(Vector2)
+        +setTitle(String)
+        +init()
+    }
 }
 
 Component <|-- Drawable : +
@@ -125,9 +126,13 @@ Drawable <|-- Button : +
 Observable <|-- Action : +
 Drawable <|-- Container : +
 Container <|-- Panel : +
+Panel <|-- Window : +
 
 Button --> Action
 Button --> "2" InputListener
+
+Window --> EventDispatcher
+Window --> SingletonEventDispatcher
 
 package layout{
     interface LayoutManager{
@@ -145,19 +150,25 @@ package layout{
     class StackLayout{
 
     }
+    class LayeredLayout{
+
+    }
 }
 
-LayoutManager <|-- OrientedLayout : ~
-OrientedLayout <|.. BorderLayout : -
-OrientedLayout <|.. StackLayout : -
+LayoutManager <|-- OrientedLayout : +
+OrientedLayout <|.. BorderLayout : +
+OrientedLayout <|.. StackLayout : +
+LayoutManager <|-- LayeredLayout : +
 
 Container --> LayoutManager
 BorderLayout --> "3" Component
 StackLayout --> "*" Component
+LayeredLayout --> "*" Component
 
 PlayerListener --> "4" InputListener
 PlayerListener --> Player
-Game --> SingletonEventDispatcher
-Game --> Button
+
+main --> Window
+main --> Button
 
 @enduml
