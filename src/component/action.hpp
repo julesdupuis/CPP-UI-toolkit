@@ -9,6 +9,7 @@ private:
     std::string name;
 
 public:
-
+    std::string getName() const;
+    void setName(std::string name);
 
 };

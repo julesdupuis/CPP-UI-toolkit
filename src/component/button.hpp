@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Action.hpp"
+#include "action.hpp"
 #include "drawable.hpp"
 #include "../event/inputListener.hpp"
 #include <raylib.h>
