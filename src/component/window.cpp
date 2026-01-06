@@ -8,7 +8,13 @@ Panel(layoutManager){
     Singleton<EventDispatcher>::create(dispatcher);
 
     // default size
-    setSize({800, 450});
+    Vector2 size = {800, 450};
+    setSize(size);
+    InitWindow(size.x, size.y, title.c_str());
+
+    SetTargetFPS(60);
+
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
 }
 
 Window::~Window(){
@@ -20,13 +26,6 @@ void Window::setTitle(std::string title){
 }
 
 void Window::init(){
-    Vector2 size = getSize();
-    InitWindow(size.x, size.y, title.c_str());
-
-    SetTargetFPS(60);
-
-    SetWindowState(FLAG_WINDOW_RESIZABLE);
-
     layout();
 
     InputListener resizeListener(

@@ -14,11 +14,7 @@ int main(void){
 
     Button button;
     button.setText("test button");
-    button.setSize({200, 100});
-    // button.fit();
-
-    // std::cerr << MeasureText("test button", 10) << "\n";
-    // std::cerr << button.getSize().x << ", " << button.getSize().y << "\n";
+    button.fit();
 
     window.add(button, static_cast<int>(BorderLayout::Constraints::RIGHT));
 

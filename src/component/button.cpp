@@ -1,5 +1,4 @@
 #include "button.hpp"
-#include <raylib.h>
 
 Button::Button():
 hoverListener([this]{return isMouseInside();},
@@ -68,7 +67,6 @@ void Button::setAction(Action& action){
 
 void Button::fit(){
     int fontSize = 10;
-    // TODO fix wrong ordering : GetFontDefault is only available after InitWindow
     Vector2 size = MeasureTextEx(GetFontDefault(), text.c_str(), fontSize, 1);
     size.x += 10*2;
     size.y += 10*2;
