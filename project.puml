@@ -84,13 +84,12 @@ package component{
     class Component{
         -position : Vector2
         -size : Vector2
+        -shown : bool
         +getPos() : Vector2
         +setPos(Vector2)
         +getSize() : Vector2
         +setSize(Vector2)
-    }
-    class Drawable{
-        -shown : bool
+        +fit()
         +draw()
         +show(bool)
     }
@@ -113,18 +112,15 @@ package component{
 
     }
     class Window{
-        -size : Vector2
         -title : String
-        +setScreenSize(Vector2)
         +setTitle(String)
         +init()
     }
 }
 
-Component <|-- Drawable : +
-Drawable <|-- Button : +
+Component <|-- Button : +
 Observable <|-- Action : +
-Drawable <|-- Container : +
+Component <|-- Container : +
 Container <|-- Panel : +
 Panel <|-- Window : +
 
@@ -158,7 +154,7 @@ package layout{
 LayoutManager <|-- OrientedLayout : +
 OrientedLayout <|.. BorderLayout : +
 OrientedLayout <|.. StackLayout : +
-LayoutManager <|-- LayeredLayout : +
+LayoutManager <|.. LayeredLayout : +
 
 Container --> LayoutManager
 BorderLayout --> "3" Component

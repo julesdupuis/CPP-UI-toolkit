@@ -18,5 +18,9 @@ void Container::layout(){
 }
 
 void Container::draw() const{
-
+    ClearBackground(LIGHTGRAY);
+    Bag<Component*> components = layoutManager.getComponents();
+    components.foreach([](Component*const& component){
+        component->draw();
+    });
 }

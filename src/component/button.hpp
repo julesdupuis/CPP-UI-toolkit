@@ -1,12 +1,12 @@
 #pragma once
 
 #include "action.hpp"
-#include "drawable.hpp"
+#include "component.hpp"
 #include "../event/inputListener.hpp"
 #include <raylib.h>
 #include <string>
 
-class Button : public Drawable{
+class Button : public Component{
 
 private:
     std::string text;
@@ -30,6 +30,7 @@ public:
     void setText(const std::string& text);
     void setAction(Action& action);
 
+    virtual void fit() override;
     virtual void draw() const override;
 
 };

@@ -66,6 +66,15 @@ void Button::setAction(Action& action){
     this->action = action;
 }
 
+void Button::fit(){
+    int fontSize = 10;
+    int textWidth = MeasureText(text.c_str(), fontSize);
+    Vector2 size;
+    size.x = textWidth + 10*2;
+    size.y = fontSize + 10*2;
+    setSize(size);
+}
+
 void Button::draw() const{
     Color buttonColor;
     switch(state){

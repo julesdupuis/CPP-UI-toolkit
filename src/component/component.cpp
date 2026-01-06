@@ -19,3 +19,15 @@ Vector2 Component::getSize() const{
 void Component::setSize(Vector2 size){
     this->size = size;
 }
+
+void Component::fit(){
+
+}
+
+void Component::show(bool isShown){
+    shown = isShown;
+}
+
+void Component::draw() const{
+    DrawRectangleV(getPos(), getSize(), SKYBLUE);
+}

@@ -1,10 +1,9 @@
 #pragma once
 
 #include "component.hpp"
-#include "drawable.hpp"
 #include "../layout/layoutManager.hpp"
 
-class Container : public Drawable{
+class Container : public Component{
 
 private:
     LayoutManager& layoutManager;

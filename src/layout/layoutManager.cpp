@@ -12,6 +12,10 @@ void LayoutManager::removeComponent(Component&, int){
 
 }
 
+Bag<Component*> LayoutManager::getComponents(){
+    return Bag<Component*>();
+}
+
 void LayoutManager::layout(Component&){
 
 }

@@ -4,19 +4,23 @@
 #include "panel.hpp"
 #include <string>
 
+#if defined(PLATFORM_DESKTOP)
+    #define GLSL_VERSION            330
+#else   // PLATFORM_ANDROID, PLATFORM_WEB -> Not supported at this moment
+    #define GLSL_VERSION            100
+#endif
+
 class Window : public Panel{
 
 private:
     EventDispatcher dispatcher;
 
-    Vector2 size = {800, 450};
     std::string title;
 
 public:
     Window(LayoutManager& layoutManager);
     ~Window();
 
-    void setScreenSize(Vector2 size);
     void setTitle(std::string title);
 
     void init();

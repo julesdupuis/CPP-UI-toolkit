@@ -43,6 +43,20 @@ void BorderLayout::removeComponent(Component&, int constraint){
     }
 }
 
+Bag<Component*> BorderLayout::getComponents(){
+    Bag<Component*> bag;
+    if(left != nullptr){
+        bag.add(left);
+    }
+    if(right != nullptr){
+        bag.add(right);
+    }
+    if(center != nullptr){
+        bag.add(center);
+    }
+    return bag;
+}
+
 void BorderLayout::layout(Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
