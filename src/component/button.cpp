@@ -68,10 +68,10 @@ void Button::setAction(Action& action){
 
 void Button::fit(){
     int fontSize = 10;
-    int textWidth = MeasureText(text.c_str(), fontSize);
-    Vector2 size;
-    size.x = textWidth + 10*2;
-    size.y = fontSize + 10*2;
+    // TODO fix wrong ordering : GetFontDefault is only available after InitWindow
+    Vector2 size = MeasureTextEx(GetFontDefault(), text.c_str(), fontSize, 1);
+    size.x += 10*2;
+    size.y += 10*2;
     setSize(size);
 }
 
