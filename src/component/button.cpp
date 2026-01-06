@@ -76,6 +76,9 @@ void Button::fit(){
 }
 
 void Button::draw() const{
+    if(!isShown()){
+        return;
+    }
     Color buttonColor;
     switch(state){
     case State::IDLE:

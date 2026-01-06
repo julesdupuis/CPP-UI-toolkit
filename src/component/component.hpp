@@ -20,6 +20,8 @@ public:
     virtual void fit();
 
     virtual void draw() const;
+
+    bool isShown() const;
     void show(bool isShown);
 
 };

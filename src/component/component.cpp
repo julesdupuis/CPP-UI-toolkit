@@ -24,10 +24,17 @@ void Component::fit(){
 
 }
 
+bool Component::isShown() const{
+    return shown;
+}
+
 void Component::show(bool isShown){
     shown = isShown;
 }
 
 void Component::draw() const{
+    if(!isShown()){
+        return;
+    }
     DrawRectangleV(getPos(), getSize(), SKYBLUE);
 }

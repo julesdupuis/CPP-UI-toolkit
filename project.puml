@@ -91,6 +91,7 @@ package component{
         +setSize(Vector2)
         +fit()
         +draw()
+        +isShown() : bool
         +show(bool)
     }
     class Button{
