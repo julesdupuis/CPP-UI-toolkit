@@ -1,7 +1,12 @@
 #include "component/button.hpp"
+#include "component/label.hpp"
 #include "component/window.hpp"
+#include "event/frameListener.hpp"
 #include "layout/borderLayout.hpp"
 #include "player.hpp"
+#include "utils/textElement.hpp"
+#include <raylib.h>
+#include <string>
 
 int main(void){
     BorderLayout borderLayout;
@@ -11,6 +16,13 @@ int main(void){
     PlayerListener playerListener(player);
 
     float runTime = 0;
+    Label runTimeLabel(TextElement(std::to_string(runTime)));
+    window.add(runTimeLabel, static_cast<int>(BorderLayout::Constraints::CENTER));
+
+    FrameListener runTimeListener([&runTime, &runTimeLabel](){
+        runTime += GetFrameTime();
+        runTimeLabel.getText().setText(std::to_string(runTime));
+    });
 
     Button button;
     button.setText("test button");
@@ -18,19 +30,12 @@ int main(void){
 
     window.add(button, static_cast<int>(BorderLayout::Constraints::RIGHT));
 
-    // TODO label, timer, slider, scrollPane
+    // TODO timer, slider, scrollPane
     window.init();
 
     // while (!WindowShouldClose()){
-    //     // user input
-
-    //     runTime += GetFrameTime();
-
     //     // Draw
     //     BeginDrawing();
-
-    //         ClearBackground(LIGHTGRAY);
-    //         DrawText(std::to_string(runTime).c_str(), 10, 10, 10, BLACK);
 
     //         const Vector2 playerPos = player.getPos();
     //         DrawCircle(playerPos.x, playerPos.y, 10, RED);

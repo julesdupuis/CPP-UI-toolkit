@@ -39,6 +39,26 @@ package utils{
         {static} +instance() : const type&
     }
     class "Singleton<EventDispatcher>" as SingletonEventDispatcher <<(T,LightBlue)>>
+
+    class TextElement{
+        -text : string
+        -font : Font
+        -fontSize : float
+        -spacing : float
+        -tint : Color
+        +getSize() : Vector2
+        +draw()
+        +getText() : string
+        +setText(string)
+        +getFont() : Font
+        +setFont(Font)
+        +getFontSize() : float
+        +setFontSize(float)
+        +getSpacing() : float
+        +setSpacing(float)
+        +getColor() : Color
+        +setColor(Color)
+    }
 }
 
 BagListener ..|> Bag
@@ -117,6 +137,9 @@ package component{
         +setTitle(String)
         +init()
     }
+    class Label{
+        +getText() : TextElement
+    }
 }
 
 Component <|-- Button : +
@@ -124,12 +147,15 @@ Observable <|-- Action : +
 Component <|-- Container : +
 Container <|-- Panel : +
 Panel <|-- Window : +
+Component <|-- Label : +
 
 Button --> Action
 Button --> "2" InputListener
 
 Window --> EventDispatcher
 Window --> SingletonEventDispatcher
+
+Label --> TextElement
 
 package layout{
     interface LayoutManager{

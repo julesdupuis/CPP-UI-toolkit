@@ -2,10 +2,10 @@
 #include "../utils/singleton.hpp"
 
 InputListener::InputListener(const std::function<bool()>& inputTest,
-    const std::function<void()> action,
-    const std::function<void()> actionElse):
+    const std::function<void()>& action,
+    const std::function<void()>& actionElse):
 dispatcher(Singleton<EventDispatcher>::instance()),
-inputTest(inputTest),action(action), actionElse(actionElse){
+inputTest(inputTest), action(action), actionElse(actionElse){
     dispatcher.addInputListener(*this);
 }
 

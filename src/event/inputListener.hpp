@@ -15,7 +15,7 @@ private:
     const std::function<void()> actionElse;
 
 public:
-    InputListener(const std::function<bool()>& inputTest, const std::function<void()> action, const std::function<void()> actionElse = []{});
+    InputListener(const std::function<bool()>& inputTest, const std::function<void()>& action, const std::function<void()>& actionElse = []{});
     ~InputListener();
 
     virtual void onEvent(Event& e) const override;
