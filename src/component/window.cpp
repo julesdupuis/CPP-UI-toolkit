@@ -25,7 +25,7 @@ void Window::setTitle(std::string title){
     this->title = title;
 }
 
-void Window::init(){
+void Window::run(){
     layout();
 
     InputListener resizeListener(

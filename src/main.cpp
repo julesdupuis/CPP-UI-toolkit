@@ -31,7 +31,7 @@ int main(void){
     window.add(button, static_cast<int>(BorderLayout::Constraints::RIGHT));
 
     // TODO timer, slider, scrollPane
-    window.init();
+    window.run();
 
     // while (!WindowShouldClose()){
     //     // Draw

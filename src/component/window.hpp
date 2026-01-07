@@ -23,6 +23,6 @@ public:
 
     void setTitle(std::string title);
 
-    void init();
+    void run();
 
 };

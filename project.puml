@@ -135,7 +135,7 @@ package component{
     class Window{
         -title : String
         +setTitle(String)
-        +init()
+        +run()
     }
     class Label{
         +getText() : TextElement
