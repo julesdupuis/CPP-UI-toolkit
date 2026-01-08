@@ -1,7 +1,6 @@
 #include "window.hpp"
 #include "../utils/singleton.hpp"
 #include "../event/inputListener.hpp"
-#include <raylib.h>
 
 Window::Window(LayoutManager& layoutManager):
 Panel(layoutManager){
@@ -48,4 +47,9 @@ void Window::run(){
         EndDrawing();
     }
 
+}
+
+void Window::draw() const{
+    ClearBackground(getBackgroundColor());
+    Container::draw();
 }

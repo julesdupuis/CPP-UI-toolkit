@@ -71,14 +71,20 @@ package event{
         +addListener(Listener&)
         +removeListener(Listener&)
     }
+    class FrameListener{
+        {field} -action : function<void()>
+    }
 }
 
 Listener <|.. InputListener : +
+Listener <|.. FrameListener : +
 Observable <|-- EventDispatcher : -
 Observable <|-- ActiveVariable : -
+
 Observable --> BagListener : listeners
 
 InputListener --> EventDispatcher
+FrameListener --> EventDispatcher
 
 package component{
     class Component{
@@ -90,6 +96,7 @@ package component{
         +getSize() : Vector2
         +setSize(Vector2)
         +fit()
+        +layout()
         +draw()
         +isShown() : bool
         +show(bool)
@@ -107,10 +114,11 @@ package component{
     class Container{
         +add(Component&, int constraint)
         +remove(Component&, int constraint)
-        +layout()
     }
     class Panel{
-
+        -backGroundColor : Color
+        +GetBackGroundColor() : Color
+        +setBackgroundColor(Color)
     }
     class Window{
         -title : String
@@ -118,7 +126,7 @@ package component{
         +run()
     }
     class Label{
-        +getText() : TextModel
+        +getTextModel() : TextModel
     }
 }
 
@@ -133,12 +141,14 @@ Button --> Action
 Button --> "2" InputListener
 
 Window --> EventDispatcher
-Window --> SingletonEventDispatcher
+Window ..> SingletonEventDispatcher : initialize
 
 package layout{
     interface LayoutManager{
         +addComponent(Component, int constraint)
         +removeComponent(Component, int constraint)
+        +getComponents() : Bag<Component*>
+        +layout(Component&)
     }
     abstract class OrientedLayout{
         -vertical : bool

@@ -1,5 +1,4 @@
 #include "container.hpp"
-#include "component.hpp"
 
 Container::Container(LayoutManager& layoutManager):layoutManager(layoutManager){
 
@@ -21,7 +20,6 @@ void Container::draw() const{
     if(!isShown()){
         return;
     }
-    ClearBackground(LIGHTGRAY);
     Bag<Component*> components = layoutManager.getComponents();
     components.foreach([](Component*const& component){
         component->draw();

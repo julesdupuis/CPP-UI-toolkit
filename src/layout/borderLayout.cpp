@@ -1,5 +1,4 @@
 #include "borderLayout.hpp"
-#include <raylib.h>
 #include <stdexcept>
 #include <string>
 
@@ -73,6 +72,7 @@ void BorderLayout::layout(Component& managed){
         }
         // left.pos stays {0, 0}
         left->setSize(size);
+        left->layout();
     }
     if(right != nullptr){
         Vector2 pos = containerPos;
@@ -93,6 +93,7 @@ void BorderLayout::layout(Component& managed){
         }
         right->setPos(pos);
         right->setSize(size);
+        right->layout();
     }
     if(center != nullptr){
         Vector2 pos = containerPos;
@@ -125,5 +126,6 @@ void BorderLayout::layout(Component& managed){
         }
         center->setPos(pos);
         center->setSize(size);
+        center->layout();
     }
 }

@@ -14,7 +14,7 @@ public:
     void add(Component& component, int constraint);
     void remove(Component& component, int constraint);
 
-    void layout();
+    virtual void layout() override;
     virtual void draw() const override;
 
 };

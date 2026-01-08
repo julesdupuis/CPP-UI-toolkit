@@ -25,4 +25,6 @@ public:
 
     void run();
 
+    virtual void draw() const override;
+
 };

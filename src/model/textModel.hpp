@@ -13,7 +13,7 @@ private:
     Color tint = BLACK;
 
 public:
-    TextModel(std::string text, Font font = GetFontDefault());
+    TextModel(std::string text = "", Font font = GetFontDefault());
 
     Vector2 getSize() const;
     void draw(Vector2 position) const;

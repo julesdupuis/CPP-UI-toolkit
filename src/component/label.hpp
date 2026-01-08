@@ -9,10 +9,11 @@ private:
     TextModel& textModel;
 
 public:
-    Label(TextModel&& textModel);
+    Label(TextModel& text);
 
-    TextModel& getText() const;
+    TextModel& getTextModel() const;
 
     virtual void draw() const override;
+    virtual void fit() override;
 
 };

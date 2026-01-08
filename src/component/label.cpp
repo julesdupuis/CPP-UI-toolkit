@@ -1,13 +1,20 @@
 #include "label.hpp"
 
-Label::Label(TextModel&& textModel):textModel(textModel){
+Label::Label(TextModel& textModel):textModel(textModel){
 
 }
 
-TextModel& Label::getText() const{
+TextModel& Label::getTextModel() const{
     return const_cast<TextModel&>(textModel);
 }
 
 void Label::draw() const{
     textModel.draw(getPos());
+}
+
+void Label::fit(){
+    Vector2 size = textModel.getSize();
+    size.x += 20;
+    size.y += 20;
+    setSize(size);
 }

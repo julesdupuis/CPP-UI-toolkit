@@ -12,6 +12,7 @@ private:
 
 public:
     Component(Vector2 pos = {0, 0}, Vector2 size = {10, 10});
+    virtual ~Component();
 
     Vector2 getPos() const;
     void setPos(Vector2 pos);
@@ -19,6 +20,7 @@ public:
     void setSize(Vector2 size);
     virtual void fit();
 
+    virtual void layout();
     virtual void draw() const;
 
     bool isShown() const;

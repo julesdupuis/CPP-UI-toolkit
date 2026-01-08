@@ -1,6 +1,11 @@
 #include "component.hpp"
+#include <raylib.h>
 
 Component::Component(Vector2 pos, Vector2 size):position(pos), size(size){
+
+}
+
+Component::~Component(){
 
 }
 
@@ -24,6 +29,10 @@ void Component::fit(){
 
 }
 
+void Component::layout(){
+
+}
+
 bool Component::isShown() const{
     return shown;
 }
@@ -36,5 +45,5 @@ void Component::draw() const{
     if(!isShown()){
         return;
     }
-    DrawRectangleV(getPos(), getSize(), SKYBLUE);
+    DrawRectangleV(getPos(), getSize(), VIOLET);
 }
