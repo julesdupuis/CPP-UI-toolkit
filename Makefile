@@ -8,16 +8,16 @@ SRC_MAIN_FILES:=main.o player.o
 SRC_EVENT_FILES:=eventDispatcher.o inputListener.o frameListener.o
 SRC_COMPONENT_FILES:=button.o component.o action.o window.o panel.o container.o label.o
 SRC_LAYOUT_FILES:=layoutManager.o orientedLayout.o borderLayout.o stackLayout.o
-SRC_UTILS_FILES:=textElement.o
+SRC_MODEL_FILES:=textModel.o
 
-SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES) $(SRC_LAYOUT_FILES) $(SRC_UTILS_FILES))
+SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES) $(SRC_LAYOUT_FILES) $(SRC_MODEL_FILES))
 
 TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o)
 
 TEST_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
 DEPENDENCIES:=$(wildcard build/*.d)
-VPATH=test src src/utils src/event src/component src/layout
+VPATH=test src src/utils src/event src/component src/layout src/model
 
 all : run
 

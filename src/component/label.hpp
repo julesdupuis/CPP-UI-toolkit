@@ -1,17 +1,17 @@
 #pragma once
 
 #include "component.hpp"
-#include "../utils/textElement.hpp"
+#include "../model/textModel.hpp"
 
 class Label : public Component{
 
 private:
-    TextElement text;
+    TextModel& textModel;
 
 public:
-    Label(TextElement&& text);
+    Label(TextModel&& textModel);
 
-    TextElement& getText() const;
+    TextModel& getText() const;
 
     virtual void draw() const override;
 

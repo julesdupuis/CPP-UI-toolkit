@@ -4,7 +4,7 @@
 #include "event/frameListener.hpp"
 #include "layout/borderLayout.hpp"
 #include "player.hpp"
-#include "utils/textElement.hpp"
+#include "model/textModel.hpp"
 #include <raylib.h>
 #include <string>
 
@@ -16,7 +16,7 @@ int main(void){
     PlayerListener playerListener(player);
 
     float runTime = 0;
-    Label runTimeLabel(TextElement(std::to_string(runTime)));
+    Label runTimeLabel(TextModel(std::to_string(runTime)));
     window.add(runTimeLabel, static_cast<int>(BorderLayout::Constraints::CENTER));
 
     FrameListener runTimeListener([&runTime, &runTimeLabel](){

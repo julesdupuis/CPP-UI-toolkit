@@ -1,13 +1,13 @@
 #include "label.hpp"
 
-Label::Label(TextElement&& text):text(text){
+Label::Label(TextModel&& textModel):textModel(textModel){
 
 }
 
-TextElement& Label::getText() const{
-    return const_cast<TextElement&>(text);
+TextModel& Label::getText() const{
+    return const_cast<TextModel&>(textModel);
 }
 
 void Label::draw() const{
-    text.draw(getPos());
+    textModel.draw(getPos());
 }
