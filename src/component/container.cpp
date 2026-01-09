@@ -8,8 +8,8 @@ void Container::add(Component& component, int constraint){
     layoutManager.addComponent(component, constraint);
 }
 
-void Container::remove(Component& component, int constraint){
-    layoutManager.removeComponent(component, constraint);
+void Container::remove(int constraint){
+    layoutManager.removeComponent(constraint);
 }
 
 void Container::layout(){

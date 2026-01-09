@@ -12,7 +12,7 @@ public:
     Container(LayoutManager& layoutManager);
 
     void add(Component& component, int constraint);
-    void remove(Component& component, int constraint);
+    void remove(int constraint);
 
     virtual void layout() override;
     virtual void draw() const override;

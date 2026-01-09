@@ -22,7 +22,7 @@ public:
     BorderLayout(bool vertical = false);
 
     virtual void addComponent(Component& component, int constraint = static_cast<int>(Constraints::CENTER)) override;
-    virtual void removeComponent(Component& component, int constraint) override;
+    virtual void removeComponent(int constraint) override;
 
     virtual void foreachComponent(const std::function<void(const Component&)>& function) const override;
 

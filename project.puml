@@ -113,7 +113,7 @@ package component{
     }
     class Container{
         +add(Component&, int constraint)
-        +remove(Component&, int constraint)
+        +remove(int constraint)
     }
     class Panel{
         -backGroundColor : Color
@@ -146,7 +146,7 @@ Window ..> SingletonEventDispatcher : initialize
 package layout{
     interface LayoutManager{
         +addComponent(Component, int constraint)
-        +removeComponent(Component, int constraint)
+        +removeComponent(int constraint)
         +foreachComponents(function<void(Component)>)
         +layout(Component&)
     }
@@ -164,12 +164,16 @@ package layout{
     class LayeredLayout{
 
     }
+    class FreeLayout{
+
+    }
 }
 
 LayoutManager <|-- OrientedLayout : +
 OrientedLayout <|.. BorderLayout : +
 OrientedLayout <|.. StackLayout : +
 LayoutManager <|.. LayeredLayout : +
+LayeredLayout <|-- FreeLayout : +
 
 Container --> LayoutManager
 BorderLayout --> "3" Component

@@ -28,7 +28,7 @@ void BorderLayout::addComponent(Component& component, int constraint){
     }
 }
 
-void BorderLayout::removeComponent(Component&, int constraint){
+void BorderLayout::removeComponent(int constraint){
     switch(static_cast<Constraints>(constraint)){
     case Constraints::LEFT:
     // case Constraints::TOP:

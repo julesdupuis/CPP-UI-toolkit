@@ -18,7 +18,7 @@ public:
     StackLayout(bool vertical = true);
 
     virtual void addComponent(Component& component, int constraint = static_cast<int>(Constraints::LAST)) override;
-    virtual void removeComponent(Component& component, int constraint = static_cast<int>(Constraints::LAST)) override;
+    virtual void removeComponent(int constraint = static_cast<int>(Constraints::LAST)) override;
 
     virtual void foreachComponent(const std::function<void(const Component&)>& function) const override;
 

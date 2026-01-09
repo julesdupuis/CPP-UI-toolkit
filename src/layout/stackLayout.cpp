@@ -22,7 +22,7 @@ void StackLayout::addComponent(Component& component, int constraint){
     content.insert(content.begin()+constraint, component);
 }
 
-void StackLayout::removeComponent(Component&, int constraint){
+void StackLayout::removeComponent(int constraint){
     if(constraint < static_cast<int>(Constraints::LAST)){
         throw  std::invalid_argument(std::to_string(constraint));
     }

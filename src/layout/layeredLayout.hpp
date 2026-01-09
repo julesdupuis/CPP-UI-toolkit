@@ -11,14 +11,14 @@ public:
         BACK = 0,
     };
 
-private:
+protected:
     std::vector<std::reference_wrapper<Component>> content;
 
 public:
     LayeredLayout();
 
     virtual void addComponent(Component& component, int constraint) override;
-    virtual void removeComponent(Component& component, int constraint) override;
+    virtual void removeComponent(int constraint) override;
 
     virtual void foreachComponent(const std::function<void(const Component&)>& function) const override;
 

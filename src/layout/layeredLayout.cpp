@@ -22,7 +22,7 @@ void LayeredLayout::addComponent(Component& component, int constraint){
     content.insert(content.begin()+constraint, component);
 }
 
-void LayeredLayout::removeComponent(Component& component, int constraint){
+void LayeredLayout::removeComponent(int constraint){
     if(constraint < static_cast<int>(Constraints::FRONT)){
         throw  std::invalid_argument(std::to_string(constraint));
     }
