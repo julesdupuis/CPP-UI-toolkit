@@ -1,9 +1,11 @@
 #include "component/button.hpp"
+#include "component/container.hpp"
 #include "component/label.hpp"
 #include "component/panel.hpp"
 #include "component/window.hpp"
 #include "event/frameListener.hpp"
 #include "layout/borderLayout.hpp"
+#include "layout/layeredLayout.hpp"
 #include "layout/stackLayout.hpp"
 #include "player.hpp"
 #include "model/textModel.hpp"
@@ -76,8 +78,34 @@ int main(void){
     buttonPanel.add(button, static_cast<int>(BorderLayout::Constraints::RIGHT));
     buttonPanel.add(statusPanel, static_cast<int>(BorderLayout::Constraints::CENTER));
 
+    LayeredLayout centerLayout;
+    Container centerPanel(centerLayout);
+
+    TextModel feur1("FEUR");
+    feur1.setFontSize(300);
+    feur1.setColor(BLUE);
+    feur1.setSpacing(10);
+
+    TextModel feur2("FEUR");
+    feur2.setFontSize(200);
+    feur2.setColor(YELLOW);
+    feur2.setSpacing(5);
+
+    TextModel feur3("FEUR");
+    feur3.setFontSize(100);
+    feur3.setColor(RED);
+
+    Label feur1Label(feur1);
+    Label feur2Label(feur2);
+    Label feur3Label(feur3);
+
+    centerPanel.add(feur1Label, static_cast<int>(LayeredLayout::Constraints::FRONT));
+    centerPanel.add(feur2Label, static_cast<int>(LayeredLayout::Constraints::FRONT));
+    centerPanel.add(feur3Label, static_cast<int>(LayeredLayout::Constraints::FRONT));
+    centerPanel.add(runTimeLabel, static_cast<int>(LayeredLayout::Constraints::FRONT));
+
     window.add(container, static_cast<int>(BorderLayout::Constraints::LEFT));
-    window.add(runTimeLabel, static_cast<int>(BorderLayout::Constraints::CENTER));
+    window.add(centerPanel, static_cast<int>(BorderLayout::Constraints::CENTER));
     window.add(buttonPanel, static_cast<int>(BorderLayout::Constraints::RIGHT));
 
     window.run();
@@ -92,6 +120,8 @@ int main(void){
 
     // TODO draw player
     // TODO draw player pos label
+
+    // TODO FIX Button is pressed on click outside then hover inside
 
     return 0;
 }
