@@ -1,9 +1,7 @@
 #pragma once
 
 #include "../component/component.hpp"
-#include "../utils/bag.hpp"
-
-template class Bag<Component*>;
+#include <functional>
 
 class LayoutManager{
 
@@ -15,10 +13,11 @@ protected:
 public:
     // virtual ~LayoutManager()=0;
 
-    virtual void addComponent(Component& component, int constraint);
-    virtual void removeComponent(Component& component, int constraint);
-    virtual Bag<Component*> getComponents();
+    virtual void addComponent(Component& component, int constraint)=0;
+    virtual void removeComponent(Component& component, int constraint)=0;
 
-    virtual void layout(Component& managed);
+    virtual void foreachComponent(const std::function<void(const Component&)>& function) const=0;
+
+    virtual void layout(Component& managed)=0;
 
 };

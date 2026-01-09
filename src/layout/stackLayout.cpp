@@ -3,6 +3,10 @@
 #include <stdexcept>
 #include <string>
 
+#ifdef DEBUG_LAYOUT_SIZES
+#include <iostream>
+#endif
+
 StackLayout::StackLayout(bool vertical):OrientedLayout(vertical){
 
 }
@@ -29,21 +33,22 @@ void StackLayout::removeComponent(Component&, int constraint){
     content.erase(content.begin()+constraint);
 }
 
-Bag<Component*> StackLayout::getComponents(){
-    Bag<Component*> bag;
-    std::for_each(content.begin(), content.end(), [&bag](Component& component){
-        bag.add(&component);
-    });
-    return bag;
-};
+void StackLayout::foreachComponent(const std::function<void(const Component&)>& function) const{
+    std::for_each(content.cbegin(), content.cend(), function);
+}
 
 void StackLayout::layout(Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
+#ifdef DEBUG_LAYOUT_SIZES
+    std::cerr<<"StackLayout{"<<containerPos.x<<", "<<containerPos.y<<"}, {"
+    <<containerSize.x<<", "<<containerSize.y<<"}\n";
+#endif
+
     Vector2 currentPos = containerPos;
     if(isVertical()){
-        for(Component current : content){
+        for(Component& current : content){
             Vector2 currentSize = current.getSize();
             currentSize.x = containerSize.x;
             current.setPos(currentPos);
@@ -52,7 +57,7 @@ void StackLayout::layout(Component& managed){
             current.layout();
         }
     }else{
-        for(Component current : content){
+        for(Component& current : content){
             Vector2 currentSize = current.getSize();
             currentSize.y = containerSize.y;
             current.setPos(currentPos);

@@ -13,6 +13,8 @@ public:
 
     TextModel& getTextModel() const;
 
+    virtual void layout() override;
+
     virtual void draw() const override;
     virtual void fit() override;
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "orientedLayout.hpp"
-#include <functional>
 #include <vector>
 
 class StackLayout : public OrientedLayout{
@@ -20,7 +19,8 @@ public:
 
     virtual void addComponent(Component& component, int constraint = static_cast<int>(Constraints::LAST)) override;
     virtual void removeComponent(Component& component, int constraint = static_cast<int>(Constraints::LAST)) override;
-    virtual Bag<Component*> getComponents() override;
+
+    virtual void foreachComponent(const std::function<void(const Component&)>& function) const override;
 
     virtual void layout(Component& managed) override;
 

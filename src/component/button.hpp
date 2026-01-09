@@ -30,6 +30,8 @@ public:
     void setText(const std::string& text);
     void setAction(Action& action);
 
+    virtual void layout() override;
+
     virtual void fit() override;
     virtual void draw() const override;
 

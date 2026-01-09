@@ -1,5 +1,9 @@
 #include "label.hpp"
 
+#ifdef DEBUG_LAYOUT_SIZES
+#include <iostream>
+#endif
+
 Label::Label(TextModel& textModel):textModel(textModel){
 
 }
@@ -9,7 +13,14 @@ TextModel& Label::getTextModel() const{
 }
 
 void Label::draw() const{
-    textModel.draw(getPos());
+    if(!isShown()){
+        return;
+    }
+    Vector2 pos = getPos();
+    const Vector2 textSize = getTextModel().getSize();
+    pos.x += (getSize().x - textSize.x)/2;
+    pos.y += (getSize().y - textSize.y)/2;
+    textModel.draw(pos);
 }
 
 void Label::fit(){
@@ -17,4 +28,13 @@ void Label::fit(){
     size.x += 20;
     size.y += 20;
     setSize(size);
+}
+
+void Label::layout(){
+#ifdef DEBUG_LAYOUT_SIZES
+    const Vector2 pos = getPos();
+    const Vector2 size = getSize();
+    std::cerr<<"Label{"<<pos.x<<", "<<pos.y<<"}, {"
+    <<size.x<<", "<<size.y<<"}\n";
+#endif
 }

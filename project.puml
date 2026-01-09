@@ -147,7 +147,7 @@ package layout{
     interface LayoutManager{
         +addComponent(Component, int constraint)
         +removeComponent(Component, int constraint)
-        +getComponents() : Bag<Component*>
+        +foreachComponents(function<void(Component)>)
         +layout(Component&)
     }
     abstract class OrientedLayout{

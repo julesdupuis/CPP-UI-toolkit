@@ -2,6 +2,10 @@
 #include "../utils/singleton.hpp"
 #include "../event/inputListener.hpp"
 
+#ifdef DEBUG_LAYOUT_SIZES
+#include <iostream>
+#endif
+
 Window::Window(LayoutManager& layoutManager):
 Panel(layoutManager){
     Singleton<EventDispatcher>::create(dispatcher);
@@ -22,6 +26,7 @@ Window::~Window(){
 
 void Window::setTitle(std::string title){
     this->title = title;
+    SetWindowTitle(title.c_str());
 }
 
 void Window::run(){
@@ -52,4 +57,11 @@ void Window::run(){
 void Window::draw() const{
     ClearBackground(getBackgroundColor());
     Container::draw();
+}
+
+void Window::layout(){
+#ifdef DEBUG_LAYOUT_SIZES
+    std::cerr<<"Window\n";
+#endif
+    Panel::layout();
 }

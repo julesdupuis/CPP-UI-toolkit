@@ -27,4 +27,6 @@ public:
 
     virtual void draw() const override;
 
+    virtual void layout() override;
+
 };

@@ -1,7 +1,10 @@
 BUILD_DIR:=build
 
+DEBUG_FLAGS=
+# DEBUG_FLAGS+=-DDEBUG_LAYOUT_SIZES
+
 CXX:=clang++
-CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD
+CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD $(DEBUG_FLAGS)
 LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 SRC_MAIN_FILES:=main.o player.o

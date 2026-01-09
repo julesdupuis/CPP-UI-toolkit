@@ -4,18 +4,18 @@ LayoutManager::LayoutManager(){
 
 }
 
-void LayoutManager::addComponent(Component&, int){
+// void LayoutManager::addComponent(Component&, int){
 
-}
+// }
 
-void LayoutManager::removeComponent(Component&, int){
+// void LayoutManager::removeComponent(Component&, int){
 
-}
+// }
 
-Bag<Component*> LayoutManager::getComponents(){
-    return Bag<Component*>();
-}
+// void LayoutManager::foreachComponent(const std::function<void(const Component&)>&) const{
 
-void LayoutManager::layout(Component&){
+// };
 
-}
+// void LayoutManager::layout(Component&){
+
+// }

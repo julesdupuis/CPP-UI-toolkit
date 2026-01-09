@@ -2,6 +2,10 @@
 #include <stdexcept>
 #include <string>
 
+#ifdef DEBUG_LAYOUT_SIZES
+#include <iostream>
+#endif
+
 BorderLayout::BorderLayout(bool vertical):OrientedLayout(vertical){
 
 }
@@ -42,25 +46,29 @@ void BorderLayout::removeComponent(Component&, int constraint){
     }
 }
 
-Bag<Component*> BorderLayout::getComponents(){
-    Bag<Component*> bag;
+void BorderLayout::foreachComponent(const std::function<void(const Component&)>& function) const{
     if(left != nullptr){
-        bag.add(left);
+        function(*left);
     }
     if(right != nullptr){
-        bag.add(right);
+        function(*right);
     }
     if(center != nullptr){
-        bag.add(center);
+        function(*center);
     }
-    return bag;
 }
 
 void BorderLayout::layout(Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
+#ifdef DEBUG_LAYOUT_SIZES
+    std::cerr<<"BorderLayout{"<<containerPos.x<<", "<<containerPos.y<<"}, {"
+    <<containerSize.x<<", "<<containerSize.y<<"}\n";
+#endif
+
     if(left != nullptr){
+        Vector2 pos = containerPos;
         Vector2 size = left->getSize();
 
         if(isVertical()){
@@ -70,7 +78,7 @@ void BorderLayout::layout(Component& managed){
             // size.x does not change
             size.y = containerSize.y;
         }
-        // left.pos stays {0, 0}
+        left->setPos(pos);
         left->setSize(size);
         left->layout();
     }

@@ -20,8 +20,7 @@ void Container::draw() const{
     if(!isShown()){
         return;
     }
-    Bag<Component*> components = layoutManager.getComponents();
-    components.foreach([](Component*const& component){
-        component->draw();
+    layoutManager.foreachComponent([](const Component& component){
+        component.draw();
     });
 }
