@@ -6,43 +6,49 @@
 #include <iostream>
 #endif
 
+const LayoutConstraint BorderLayout::Constraints::LEFT(static_cast<int>(ConstraintsEnum::LEFT));
+const LayoutConstraint BorderLayout::Constraints::RIGHT(static_cast<int>(ConstraintsEnum::RIGHT));
+const LayoutConstraint BorderLayout::Constraints::TOP(static_cast<int>(ConstraintsEnum::TOP)); // = LEFT;
+const LayoutConstraint BorderLayout::Constraints::BOTTOM(static_cast<int>(ConstraintsEnum::BOTTOM)); // = RIGHT;
+const LayoutConstraint BorderLayout::Constraints::CENTER(static_cast<int>(ConstraintsEnum::CENTER));
+
 BorderLayout::BorderLayout(bool vertical):OrientedLayout(vertical){
 
 }
 
-void BorderLayout::addComponent(Component& component, int constraint){
-    switch(static_cast<Constraints>(constraint)){
-    case Constraints::LEFT:
+void BorderLayout::addComponent(Component& component, const LayoutConstraint& constraint){
+    switch(static_cast<ConstraintsEnum>(constraint.getValue())){
+    case ConstraintsEnum::LEFT:
     // case Constraints::TOP:
         left = &component;
         break;
-    case Constraints::RIGHT:
+    case ConstraintsEnum::RIGHT:
     // case Constraints::BOTTOM:
         right = &component;
         break;
-    case Constraints::CENTER:
+    case ConstraintsEnum::CENTER:
         center = &component;
         break;
     default:
-        throw std::invalid_argument(std::to_string(constraint));
+        throw std::invalid_argument(std::to_string(constraint.getValue()));
     }
 }
 
-void BorderLayout::removeComponent(int constraint){
-    switch(static_cast<Constraints>(constraint)){
-    case Constraints::LEFT:
+void BorderLayout::removeComponent(const LayoutConstraint& constraint){
+    switch(static_cast<ConstraintsEnum>(constraint.getValue())){
+    case ConstraintsEnum::LEFT:
     // case Constraints::TOP:
         left = nullptr;
         break;
-    case Constraints::RIGHT:
+    case ConstraintsEnum::RIGHT:
     // case Constraints::BOTTOM:
         right = nullptr;
         break;
-    case Constraints::CENTER:
+    case ConstraintsEnum::CENTER:
         center = nullptr;
         break;
     default:
-        throw std::invalid_argument(std::to_string(constraint));
+        throw std::invalid_argument(std::to_string(constraint.getValue()));
     }
 }
 

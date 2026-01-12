@@ -1,4 +1,5 @@
 #include "stackLayout.hpp"
+#include "layoutManager.hpp"
 #include <algorithm>
 #include <stdexcept>
 #include <string>
@@ -7,30 +8,37 @@
 #include <iostream>
 #endif
 
+const LayoutConstraint StackLayout::Constraints::FIRST(static_cast<int>(ConstraintsEnum::FIRST));
+const LayoutConstraint StackLayout::Constraints::LAST(static_cast<int>(ConstraintsEnum::LAST));
+
 StackLayout::StackLayout(bool vertical):OrientedLayout(vertical){
 
 }
 
-void StackLayout::addComponent(Component& component, int constraint){
-    if(constraint < static_cast<int>(Constraints::LAST)){
-        throw  std::invalid_argument(std::to_string(constraint));
-    }
-    if(constraint == static_cast<int>(Constraints::LAST)){
+void StackLayout::addComponent(Component& component, const LayoutConstraint& constraint){
+    switch(static_cast<ConstraintsEnum>(constraint.getValue())){
+    case ConstraintsEnum::FIRST:
+        content.insert(content.cbegin(), component);
+        break;
+    case ConstraintsEnum::LAST:
         content.push_back(component);
-        return;
+        break;
+    default:
+        throw std::invalid_argument(std::to_string(constraint.getValue()));
     }
-    content.insert(content.begin()+constraint, component);
 }
 
-void StackLayout::removeComponent(int constraint){
-    if(constraint < static_cast<int>(Constraints::LAST)){
-        throw  std::invalid_argument(std::to_string(constraint));
-    }
-    if(constraint == static_cast<int>(Constraints::LAST)){
+void StackLayout::removeComponent(const LayoutConstraint& constraint){
+    switch(static_cast<ConstraintsEnum>(constraint.getValue())){
+    case ConstraintsEnum::FIRST:
+        content.erase(content.cbegin());
+        break;
+    case ConstraintsEnum::LAST:
         content.pop_back();
-        return;
+        break;
+    default:
+        throw std::invalid_argument(std::to_string(constraint.getValue()));
     }
-    content.erase(content.begin()+constraint);
 }
 
 void StackLayout::foreachComponent(const std::function<void(const Component&)>& function) const{

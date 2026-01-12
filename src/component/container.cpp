@@ -4,11 +4,11 @@ Container::Container(LayoutManager& layoutManager):layoutManager(layoutManager){
 
 }
 
-void Container::add(Component& component, int constraint){
+void Container::add(Component& component, const LayoutConstraint& constraint){
     layoutManager.addComponent(component, constraint);
 }
 
-void Container::remove(int constraint){
+void Container::remove(const LayoutConstraint& constraint){
     layoutManager.removeComponent(constraint);
 }
 

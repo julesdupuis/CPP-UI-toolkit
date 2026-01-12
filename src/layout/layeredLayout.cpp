@@ -7,30 +7,37 @@
 #include <iostream>
 #endif
 
+const LayoutConstraint LayeredLayout::Constraints::FRONT(static_cast<int>(ConstraintsEnum::FRONT));
+const LayoutConstraint LayeredLayout::Constraints::BACK(static_cast<int>(ConstraintsEnum::BACK));
+
 LayeredLayout::LayeredLayout(){
 
 }
 
-void LayeredLayout::addComponent(Component& component, int constraint){
-    if(constraint < static_cast<int>(Constraints::FRONT)){
-        throw  std::invalid_argument(std::to_string(constraint));
-    }
-    if(constraint == static_cast<int>(Constraints::FRONT)){
+void LayeredLayout::addComponent(Component& component, const LayoutConstraint& constraint){
+    switch(static_cast<ConstraintsEnum>(constraint.getValue())){
+    case ConstraintsEnum::FRONT:
         content.push_back(component);
-        return;
+        break;
+    case ConstraintsEnum::BACK:
+        content.insert(content.cbegin(), component);
+        break;
+    default:
+        throw std::invalid_argument(std::to_string(constraint.getValue()));
     }
-    content.insert(content.begin()+constraint, component);
 }
 
-void LayeredLayout::removeComponent(int constraint){
-    if(constraint < static_cast<int>(Constraints::FRONT)){
-        throw  std::invalid_argument(std::to_string(constraint));
-    }
-    if(constraint == static_cast<int>(Constraints::FRONT)){
+void LayeredLayout::removeComponent(const LayoutConstraint& constraint){
+    switch(static_cast<ConstraintsEnum>(constraint.getValue())){
+    case ConstraintsEnum::FRONT:
+        content.erase(content.cbegin());
+        break;
+    case ConstraintsEnum::BACK:
         content.pop_back();
-        return;
+        break;
+    default:
+        throw std::invalid_argument(std::to_string(constraint.getValue()));
     }
-    content.erase(content.begin()+constraint);
 }
 
 void LayeredLayout::foreachComponent(const std::function<void(const Component&)>& function) const{

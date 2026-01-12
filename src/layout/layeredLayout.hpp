@@ -6,9 +6,15 @@
 class LayeredLayout : public LayoutManager{
 
 public:
-    enum class Constraints{
-        FRONT = -1,
-        BACK = 0,
+    struct Constraints{
+        static const LayoutConstraint FRONT;
+        static const LayoutConstraint BACK;
+    };
+
+private:
+    enum class ConstraintsEnum{
+        FRONT,
+        BACK,
     };
 
 protected:
@@ -17,8 +23,8 @@ protected:
 public:
     LayeredLayout();
 
-    virtual void addComponent(Component& component, int constraint) override;
-    virtual void removeComponent(int constraint) override;
+    virtual void addComponent(Component& component, const LayoutConstraint& constraint) override;
+    virtual void removeComponent(const LayoutConstraint& constraint) override;
 
     virtual void foreachComponent(const std::function<void(const Component&)>& function) const override;
 

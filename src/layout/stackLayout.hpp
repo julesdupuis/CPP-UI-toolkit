@@ -6,19 +6,24 @@
 class StackLayout : public OrientedLayout{
 
 public:
-    enum class Constraints{
-        LAST = -1,
-        FIRST = 0,
+    struct Constraints{
+        static const LayoutConstraint LAST;
+        static const LayoutConstraint FIRST;
     };
 
 private:
+    enum class ConstraintsEnum{
+        LAST,
+        FIRST,
+    };
+
     std::vector<std::reference_wrapper<Component>> content;
 
 public:
     StackLayout(bool vertical = true);
 
-    virtual void addComponent(Component& component, int constraint = static_cast<int>(Constraints::LAST)) override;
-    virtual void removeComponent(int constraint = static_cast<int>(Constraints::LAST)) override;
+    virtual void addComponent(Component& component, const LayoutConstraint& constraint = Constraints::LAST) override;
+    virtual void removeComponent(const LayoutConstraint& constraint = Constraints::LAST) override;
 
     virtual void foreachComponent(const std::function<void(const Component&)>& function) const override;
 

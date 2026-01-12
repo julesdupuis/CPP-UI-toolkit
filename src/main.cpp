@@ -40,8 +40,8 @@ int main(void){
     StackLayout stackLayout(false);
     Panel container(stackLayout);
     container.setBackgroundColor(GRAY);
-    container.add(runTimeLabel2, static_cast<int>(StackLayout::Constraints::LAST));
-    container.add(playerPosLabel, static_cast<int>(StackLayout::Constraints::LAST));
+    container.add(runTimeLabel2, StackLayout::Constraints::LAST);
+    container.add(playerPosLabel, StackLayout::Constraints::LAST);
 
     BorderLayout buttonPanelLayout;
     Panel buttonPanel(buttonPanelLayout);
@@ -70,13 +70,13 @@ int main(void){
     StackLayout statusLayout(false);
     Panel statusPanel(statusLayout);
     statusPanel.setBackgroundColor(BLUE);
-    statusPanel.add(statusLabel, static_cast<int>(StackLayout::Constraints::LAST));
-    statusPanel.add(specialButton, static_cast<int>(StackLayout::Constraints::LAST));
-    statusPanel.add(statusLabel2, static_cast<int>(StackLayout::Constraints::LAST));
+    statusPanel.add(statusLabel, StackLayout::Constraints::LAST);
+    statusPanel.add(specialButton, StackLayout::Constraints::LAST);
+    statusPanel.add(statusLabel2, StackLayout::Constraints::LAST);
 
-    buttonPanel.add(buttonClick, static_cast<int>(BorderLayout::Constraints::LEFT));
-    buttonPanel.add(button, static_cast<int>(BorderLayout::Constraints::RIGHT));
-    buttonPanel.add(statusPanel, static_cast<int>(BorderLayout::Constraints::CENTER));
+    buttonPanel.add(buttonClick, BorderLayout::Constraints::LEFT);
+    buttonPanel.add(button, BorderLayout::Constraints::RIGHT);
+    buttonPanel.add(statusPanel, BorderLayout::Constraints::CENTER);
 
     LayeredLayout centerLayout;
     Container centerPanel(centerLayout);
@@ -99,14 +99,14 @@ int main(void){
     Label feur2Label(feur2);
     Label feur3Label(feur3);
 
-    centerPanel.add(feur1Label, static_cast<int>(LayeredLayout::Constraints::FRONT));
-    centerPanel.add(feur2Label, static_cast<int>(LayeredLayout::Constraints::FRONT));
-    centerPanel.add(feur3Label, static_cast<int>(LayeredLayout::Constraints::FRONT));
-    centerPanel.add(runTimeLabel, static_cast<int>(LayeredLayout::Constraints::FRONT));
+    centerPanel.add(feur1Label, LayeredLayout::Constraints::FRONT);
+    centerPanel.add(feur2Label, LayeredLayout::Constraints::FRONT);
+    centerPanel.add(feur3Label, LayeredLayout::Constraints::FRONT);
+    centerPanel.add(runTimeLabel, LayeredLayout::Constraints::FRONT);
 
-    window.add(container, static_cast<int>(BorderLayout::Constraints::LEFT));
-    window.add(centerPanel, static_cast<int>(BorderLayout::Constraints::CENTER));
-    window.add(buttonPanel, static_cast<int>(BorderLayout::Constraints::RIGHT));
+    window.add(container, BorderLayout::Constraints::LEFT);
+    window.add(centerPanel, BorderLayout::Constraints::CENTER);
+    window.add(buttonPanel, BorderLayout::Constraints::RIGHT);
 
     window.run();
 

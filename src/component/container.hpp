@@ -11,8 +11,8 @@ private:
 public:
     Container(LayoutManager& layoutManager);
 
-    void add(Component& component, int constraint);
-    void remove(int constraint);
+    void add(Component& component, const LayoutConstraint& constraint);
+    void remove(const LayoutConstraint& constraint);
 
     virtual void layout() override;
     virtual void draw() const override;

@@ -112,8 +112,8 @@ package component{
         -name : string
     }
     class Container{
-        +add(Component&, int constraint)
-        +remove(int constraint)
+        +add(Component&, LayoutContraint constraint)
+        +remove(LayoutContraint constraint)
     }
     class Panel{
         -backGroundColor : Color
@@ -145,8 +145,8 @@ Window ..> SingletonEventDispatcher : initialize
 
 package layout{
     interface LayoutManager{
-        +addComponent(Component, int constraint)
-        +removeComponent(int constraint)
+        +addComponent(Component, LayoutContraint constraint)
+        +removeComponent(LayoutContraint constraint)
         +foreachComponents(function<void(Component)>)
         +layout(Component&)
     }
