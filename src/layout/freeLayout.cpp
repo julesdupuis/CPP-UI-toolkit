@@ -8,7 +8,7 @@ FreeLayout::FreeLayout(){
 
 }
 
-void FreeLayout::layout(Component& managed){
+void FreeLayout::layout(Component& /*managed*/){
     // const Vector2 containerPos = managed.getPos();
     // const Vector2 containerSize = managed.getSize();
 
