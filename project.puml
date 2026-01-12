@@ -128,6 +128,13 @@ package component{
     class Label{
         +getTextModel() : TextModel
     }
+    class FPSLabel{
+        +setWarningValue(int)
+        +setLowValue(int)
+        +setGoodColor(Color)
+        +setWarningColor(Color)
+        +setLowColor(Color)
+    }
 }
 
 Component <|-- Button : +
@@ -136,12 +143,15 @@ Component <|-- Container : +
 Container <|-- Panel : +
 Panel <|-- Window : +
 Component <|-- Label : +
+Label <|-- FPSLabel : +
 
 Button --> Action
 Button --> "2" InputListener
 
 Window --> EventDispatcher
 Window ..> SingletonEventDispatcher : initialize
+
+FPSLabel --> FrameListener
 
 package layout{
     interface LayoutManager{

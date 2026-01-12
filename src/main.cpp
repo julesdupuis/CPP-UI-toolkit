@@ -1,5 +1,6 @@
 #include "component/button.hpp"
 #include "component/container.hpp"
+#include "component/fpsLabel.hpp"
 #include "component/label.hpp"
 #include "component/panel.hpp"
 #include "component/window.hpp"
@@ -37,11 +38,11 @@ int main(void){
         runTimeText.setText(std::to_string(runTime));
     });
 
-    StackLayout stackLayout(false);
-    Panel container(stackLayout);
-    container.setBackgroundColor(GRAY);
-    container.add(runTimeLabel2, StackLayout::Constraints::LAST);
-    container.add(playerPosLabel, StackLayout::Constraints::LAST);
+    StackLayout topPanelLayout(false);
+    Panel topPanel(topPanelLayout);
+    topPanel.setBackgroundColor(GRAY);
+    topPanel.add(runTimeLabel2, StackLayout::Constraints::LAST);
+    topPanel.add(playerPosLabel, StackLayout::Constraints::LAST);
 
     BorderLayout buttonPanelLayout;
     Panel buttonPanel(buttonPanelLayout);
@@ -67,12 +68,15 @@ int main(void){
     specialButton.setText("I AM SPECIAL");
     specialButton.fit();
 
+    FPSLabel fpsLabel;
+
     StackLayout statusLayout(false);
     Panel statusPanel(statusLayout);
     statusPanel.setBackgroundColor(BLUE);
     statusPanel.add(statusLabel, StackLayout::Constraints::LAST);
     statusPanel.add(specialButton, StackLayout::Constraints::LAST);
     statusPanel.add(statusLabel2, StackLayout::Constraints::LAST);
+    statusPanel.add(fpsLabel, StackLayout::Constraints::LAST);
 
     buttonPanel.add(buttonClick, BorderLayout::Constraints::LEFT);
     buttonPanel.add(button, BorderLayout::Constraints::RIGHT);
@@ -104,7 +108,7 @@ int main(void){
     centerPanel.add(feur3Label, LayeredLayout::Constraints::FRONT);
     centerPanel.add(runTimeLabel, LayeredLayout::Constraints::FRONT);
 
-    window.add(container, BorderLayout::Constraints::LEFT);
+    window.add(topPanel, BorderLayout::Constraints::LEFT);
     window.add(centerPanel, BorderLayout::Constraints::CENTER);
     window.add(buttonPanel, BorderLayout::Constraints::RIGHT);
 
@@ -113,10 +117,8 @@ int main(void){
     // TODO timer
     // TODO slider
     // TODO scrollPane
-    // TODO layeredLayout
-    // TODO freeLayout
     // TODO list
-    // TODO fpsLabel
+    // TODO box component
 
     // TODO draw player
     // TODO draw player pos label

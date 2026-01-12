@@ -9,7 +9,7 @@ LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 SRC_MAIN_FILES:=main.o player.o
 SRC_EVENT_FILES:=eventDispatcher.o inputListener.o frameListener.o
-SRC_COMPONENT_FILES:=button.o component.o action.o window.o panel.o container.o label.o
+SRC_COMPONENT_FILES:=button.o component.o action.o window.o panel.o container.o label.o fpsLabel.o
 SRC_LAYOUT_FILES:=layoutManager.o orientedLayout.o borderLayout.o stackLayout.o layeredLayout.o
 SRC_MODEL_FILES:=textModel.o
 
