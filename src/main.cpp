@@ -5,6 +5,7 @@
 #include "component/panel.hpp"
 #include "component/window.hpp"
 #include "event/frameListener.hpp"
+#include "event/inputListener.hpp"
 #include "layout/borderLayout.hpp"
 #include "layout/layeredLayout.hpp"
 #include "layout/stackLayout.hpp"
@@ -69,6 +70,16 @@ int main(void){
     specialButton.fit();
 
     FPSLabel fpsLabel;
+    InputListener fpsShowing([](){
+        return IsKeyReleased(KeyboardKey::KEY_F);
+    },
+    [&fpsLabel](){
+        if(fpsLabel.isShown()){
+            fpsLabel.show(false);
+        }else{
+            fpsLabel.show(true);
+        }
+    });
 
     StackLayout statusLayout(false);
     Panel statusPanel(statusLayout);

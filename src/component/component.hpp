@@ -18,8 +18,12 @@ public:
     void setPos(Vector2 pos);
     Vector2 getSize() const;
     void setSize(Vector2 size);
+
+    // set the size of the component to fit the size of it's content
     virtual void fit();
 
+    // set the size and position of contained components
+    // to correctly set the layout
     virtual void layout();
     virtual void draw() const;
 
