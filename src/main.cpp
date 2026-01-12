@@ -1,3 +1,4 @@
+#include "component/box.hpp"
 #include "component/button.hpp"
 #include "component/container.hpp"
 #include "component/fpsLabel.hpp"
@@ -81,13 +82,18 @@ int main(void){
         }
     });
 
+    Box fpsBox;
+    fpsBox.add(fpsLabel);
+    fpsBox.setInsets({10, 10, 10, 10});
+    fpsBox.SetBackgroundColor(DARKBROWN);
+
     StackLayout statusLayout(false);
     Panel statusPanel(statusLayout);
     statusPanel.setBackgroundColor(BLUE);
     statusPanel.add(statusLabel, StackLayout::Constraints::LAST);
     statusPanel.add(specialButton, StackLayout::Constraints::LAST);
     statusPanel.add(statusLabel2, StackLayout::Constraints::LAST);
-    statusPanel.add(fpsLabel, StackLayout::Constraints::LAST);
+    statusPanel.add(fpsBox, StackLayout::Constraints::LAST);
 
     buttonPanel.add(buttonClick, BorderLayout::Constraints::LEFT);
     buttonPanel.add(button, BorderLayout::Constraints::RIGHT);
@@ -129,7 +135,6 @@ int main(void){
     // TODO slider
     // TODO scrollPane
     // TODO list
-    // TODO box component
 
     // TODO draw player
     // TODO draw player pos label

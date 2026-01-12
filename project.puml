@@ -135,6 +135,16 @@ package component{
         +setWarningColor(Color)
         +setLowColor(Color)
     }
+    class Box{
+        -backgroundColor : Color
+        -insets : Vector4
+        +getBackgroundColor() : Color
+        +setBackGroundColor(Color)
+        +getInsets() : Vector4
+        +setInsets(Vector4)
+        +add(Component)
+        +remove()
+    }
 }
 
 Component <|-- Button : +
@@ -144,6 +154,7 @@ Container <|-- Panel : +
 Panel <|-- Window : +
 Component <|-- Label : +
 Label <|-- FPSLabel : +
+Component <|-- Box : +
 
 Button --> Action
 Button --> "2" InputListener
@@ -152,6 +163,7 @@ Window --> EventDispatcher
 Window ..> SingletonEventDispatcher : initialize
 
 FPSLabel --> FrameListener
+Box --> Component
 
 package layout{
     interface LayoutManager{
