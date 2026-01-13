@@ -9,6 +9,7 @@ hoverListener([this]{return isMouseInside();},
 [this]{
     switch(state){
     case State::IDLE:
+        SetMouseCursor(MouseCursor::MOUSE_CURSOR_POINTING_HAND);
         state = State::HOVERED;
         break;
     case State::PRESSED_OUT:
@@ -21,6 +22,7 @@ hoverListener([this]{return isMouseInside();},
 [this]{
     switch(state){
     case State::HOVERED:
+        SetMouseCursor(MouseCursor::MOUSE_CURSOR_DEFAULT);
         state = State::IDLE;
         break;
     case State::PRESSED:
@@ -48,6 +50,7 @@ pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
         state = State::HOVERED;
         break;
     case State::PRESSED_OUT:
+        SetMouseCursor(MouseCursor::MOUSE_CURSOR_DEFAULT);
         state = State::IDLE;
         break;
     default:
