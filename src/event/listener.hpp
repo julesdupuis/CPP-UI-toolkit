@@ -1,26 +1,15 @@
 #pragma once
 
-#include "event.hpp"
-#include <cstddef>
 #include <functional>
 
 class Listener{
 
-public:
-    virtual void onEvent(Event& e) const=0;
+private:
+    const std::function<void()> callback;
 
-    virtual bool operator==(const Listener& other) const{
-        return this==&other;
-    }
+public:
+    Listener(const std::function<void()> callback);
+
+    void onEvent() const;
 
 };
-
-namespace std {
-    template<>
-    struct hash<Listener>{
-        size_t operator()(const Listener& listener) const{
-            // a listener is hashed using it's address
-            return std::hash<const Listener*>{}(&listener);
-        }
-    };
-}

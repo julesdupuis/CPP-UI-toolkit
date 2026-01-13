@@ -8,8 +8,8 @@ void Observable::unsubscribe(Listener& listener){
     subscribers.remove(&listener);
 }
 
-void Observable::fireEvent(Event& e) const{
-    subscribers.foreach([&e](Listener* listener){
-        listener->onEvent(e);
+void Observable::fireEvent() const{
+    subscribers.foreach([](Listener* listener){
+        listener->onEvent();
     });
 }

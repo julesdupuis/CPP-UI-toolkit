@@ -15,7 +15,7 @@ SRC_MODEL_FILES:=$(wildcard src/model/*.cpp)
 
 SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(SRC_MAIN_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES) $(SRC_LAYOUT_FILES) $(SRC_MODEL_FILES))))
 
-TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o)
+TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o listener.o)
 
 TEST_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 

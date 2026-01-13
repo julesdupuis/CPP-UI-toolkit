@@ -4,12 +4,14 @@
 #include "component/fpsLabel.hpp"
 #include "component/label.hpp"
 #include "component/panel.hpp"
+#include "component/slider.hpp"
 #include "component/window.hpp"
 #include "event/frameListener.hpp"
 #include "event/inputListener.hpp"
 #include "layout/borderLayout.hpp"
 #include "layout/layeredLayout.hpp"
 #include "layout/stackLayout.hpp"
+#include "model/boundedRangeModel.hpp"
 #include "player.hpp"
 #include "model/textModel.hpp"
 #include <raylib.h>
@@ -40,21 +42,29 @@ int main(void){
         runTimeText.setText(std::to_string(runTime));
     });
 
+    BoundedRangeModel rangeModel;
+    Slider slider(rangeModel);
+    slider.setSize({100, 30});
+    rangeModel.setCurrentValue(70);
+
     StackLayout topPanelLayout(false);
     Panel topPanel(topPanelLayout);
     topPanel.setBackgroundColor(GRAY);
     topPanel.add(runTimeLabel2, StackLayout::Constraints::LAST);
     topPanel.add(playerPosLabel, StackLayout::Constraints::LAST);
+    topPanel.add(slider, StackLayout::Constraints::LAST);
 
     BorderLayout buttonPanelLayout;
     Panel buttonPanel(buttonPanelLayout);
     buttonPanel.setBackgroundColor(GRAY);
 
-    Button button;
+    Action dummyAction;
+
+    Button button(dummyAction);
     button.setText("test button");
     button.fit();
 
-    Button buttonClick;
+    Button buttonClick(dummyAction);
     buttonClick.setText("CLICK");
     buttonClick.setSize({50, 50});
 
@@ -66,7 +76,7 @@ int main(void){
     Label statusLabel2(statusText);
     statusLabel2.fit();
 
-    Button specialButton;
+    Button specialButton(dummyAction);
     specialButton.setText("I AM SPECIAL");
     specialButton.fit();
 
@@ -125,8 +135,18 @@ int main(void){
     centerPanel.add(feur3Label, LayeredLayout::Constraints::FRONT);
     centerPanel.add(runTimeLabel, LayeredLayout::Constraints::FRONT);
 
+    BorderLayout centerBL;
+    Panel centerPanelSides(centerBL);
+    centerPanelSides.setBackgroundColor(BLANK);
+
+    Slider sideSlider(rangeModel);
+    sideSlider.setVertical(true);
+
+    centerPanelSides.add(centerPanel, BorderLayout::Constraints::CENTER);
+    centerPanelSides.add(sideSlider, BorderLayout::Constraints::RIGHT);
+
     window.add(topPanel, BorderLayout::Constraints::LEFT);
-    window.add(centerPanel, BorderLayout::Constraints::CENTER);
+    window.add(centerPanelSides, BorderLayout::Constraints::CENTER);
     window.add(buttonPanel, BorderLayout::Constraints::RIGHT);
 
     window.run();
@@ -135,6 +155,15 @@ int main(void){
     // TODO slider
     // TODO scrollPane
     // TODO list
+    // TODO split pane
+
+    // ACCESSIBILTY
+    // TODO translatable string
+    // TODO action search bar
+    // TODO key mapping
+    // TODO config menu
+    // TODO color vision handling
+    // TODO narrator
 
     // TODO draw player
     // TODO draw player pos label

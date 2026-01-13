@@ -4,7 +4,8 @@
 #include <iostream>
 #endif
 
-Button::Button():
+Button::Button(Action& action):
+action(action),
 hoverListener([this]{return isMouseInside();},
 [this]{
     switch(state){
@@ -45,8 +46,7 @@ pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
 [this]{
     switch(state){
     case State::PRESSED:
-        Event e;
-        action.fireEvent(e);
+        this->action.fireEvent();
         state = State::HOVERED;
         break;
     case State::PRESSED_OUT:
@@ -60,12 +60,12 @@ pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
 
 }
 
-bool Button::isMouseInside(){
-    return CheckCollisionPointRec(GetMousePosition(), Rectangle{getPos().x, getPos().y, getSize().x, getSize().y});
-}
-
 void Button::setText(const std::string& text){
     this->text = text;
+}
+
+Action& Button::getAction() const{
+    return action;
 }
 
 void Button::setAction(Action& action){

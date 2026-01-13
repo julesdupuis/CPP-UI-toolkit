@@ -1,5 +1,4 @@
 #include "component.hpp"
-#include <raylib.h>
 
 Component::Component(Vector2 pos, Vector2 size):position(pos), size(size){
 
@@ -46,4 +45,8 @@ void Component::draw() const{
         return;
     }
     DrawRectangleV(getPos(), getSize(), VIOLET);
+}
+
+bool Component::isMouseInside(){
+    return CheckCollisionPointRec(GetMousePosition(), Rectangle{getPos().x, getPos().y, getSize().x, getSize().y});
 }

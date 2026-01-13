@@ -30,4 +30,6 @@ public:
     bool isShown() const;
     void show(bool isShown);
 
+    bool isMouseInside();
+
 };

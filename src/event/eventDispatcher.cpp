@@ -1,10 +1,7 @@
 #include "eventDispatcher.hpp"
-#include "event.hpp"
-#include <raylib.h>
 
 void EventDispatcher::dispatch(){
-    Event e;
-    fireEvent(e);
+    fireEvent();
 }
 
 void EventDispatcher::addInputListener(Listener& listener){

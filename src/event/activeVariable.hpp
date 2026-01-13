@@ -1,6 +1,5 @@
 #pragma once
 
-#include "event.hpp"
 #include "listener.hpp"
 #include "observable.hpp"
 #include <ostream>
@@ -83,8 +82,7 @@ const type& ActiveVariable<type>::get() const{
 template<class type>
 void ActiveVariable<type>::set(const type& var){
     variable = var;
-    Event e;
-    fireEvent(e);
+    fireEvent();
 }
 
 template<class type>

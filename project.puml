@@ -45,14 +45,14 @@ BagListener ..|> Bag
 SingletonEventDispatcher ..|> Singleton
 
 package event{
-    interface Event
-    interface Listener{
-        +onEvent(Event&)
+    class Listener{
+        -callback : function<void()>
+        +onEvent()
     }
     class Observable{
         +subscribe(Listener&)
         +unsubscribe(Listener&)
-        +fireEvent(Event&)
+        +fireEvent()
     }
     class InputListener{
         {field} -inputTest : function<bool()>
@@ -76,8 +76,8 @@ package event{
     }
 }
 
-Listener <|.. InputListener : +
-Listener <|.. FrameListener : +
+Listener <|-- InputListener : +
+Listener <|-- FrameListener : +
 Observable <|-- EventDispatcher : -
 Observable <|-- ActiveVariable : -
 
@@ -129,6 +129,11 @@ package component{
         +getTextModel() : TextModel
     }
     class FPSLabel{
+        -warningValue : int
+        -lowValue : int
+        -goodColor : Color
+        -warningColor : Color
+        -lowColor : Color
         +setWarningValue(int)
         +setLowValue(int)
         +setGoodColor(Color)
@@ -145,6 +150,13 @@ package component{
         +add(Component)
         +remove()
     }
+    class Slider{
+        -vertical : bool
+        -barThickness : int
+        -buttonThickness : int
+        +isVertical() : bool
+        +getBoundedRangeModel() : BoundedRangeModel
+    }
 }
 
 Component <|-- Button : +
@@ -155,6 +167,7 @@ Panel <|-- Window : +
 Component <|-- Label : +
 Label <|-- FPSLabel : +
 Component <|-- Box : +
+Component <|-- Slider : +
 
 Button --> Action
 Button --> "2" InputListener
@@ -164,6 +177,9 @@ Window ..> SingletonEventDispatcher : initialize
 
 FPSLabel --> FrameListener
 Box --> Component
+Slider --> "2" Action
+Slider --> "2" Listener
+Slider --> "2" Button
 
 package layout{
     interface LayoutManager{
@@ -222,9 +238,22 @@ package model{
         +getColor() : Color
         +setColor(Color)
     }
+    class BoundedRangeModel{
+        -minValue : int
+        -maxValue : int
+        -currentValue : int
+        +getMinValue() : int
+        +getMaxValue() : int
+        +getCurrentValue() : int
+        +getRatio() : float
+        +setMinValue(int)
+        +setMaxValue(int)
+        +setCurrentValue(int)
+    }
 }
 
 Label --> TextModel
+Slider --> BoundedRangeModel
 
 PlayerListener --> "4" InputListener
 PlayerListener --> Player

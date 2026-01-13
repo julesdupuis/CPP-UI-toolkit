@@ -3,14 +3,13 @@
 #include "action.hpp"
 #include "component.hpp"
 #include "../event/inputListener.hpp"
-#include <raylib.h>
 #include <string>
 
 class Button : public Component{
 
 private:
     std::string text;
-    Action action;
+    Action& action;
 
     enum class State{
         IDLE,
@@ -22,12 +21,11 @@ private:
     InputListener hoverListener;
     InputListener pressListener;
 
-    bool isMouseInside();
-
 public:
-    Button();
+    Button(Action& action);
 
     void setText(const std::string& text);
+    Action& getAction() const;
     void setAction(Action& action);
 
     virtual void layout() override;
