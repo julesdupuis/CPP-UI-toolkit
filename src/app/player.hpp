@@ -1,6 +1,6 @@
 #pragma once
 
-#include "event/inputListener.hpp"
+#include "../event/inputListener.hpp"
 #include <raylib.h>
 
 class Player{

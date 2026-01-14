@@ -7,16 +7,18 @@ note as mainNote
     T stereotypes are template instantiations
 end note
 
-() main
-class Player{
-    -position : Vector2
-    -speed : float
-    +move(Vector2)
-    +getPos() : Vector2
-    +getSpeed() : float
-}
-class PlayerListener{
+package app{
+    () main
+    class Player{
+        -position : Vector2
+        -speed : float
+        +move(Vector2)
+        +getPos() : Vector2
+        +getSpeed() : float
+    }
+    class PlayerListener{
 
+    }
 }
 
 main --> Player

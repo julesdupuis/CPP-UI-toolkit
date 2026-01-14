@@ -1,19 +1,19 @@
-#include "component/box.hpp"
-#include "component/button.hpp"
-#include "component/container.hpp"
-#include "component/fpsLabel.hpp"
-#include "component/label.hpp"
-#include "component/panel.hpp"
-#include "component/slider.hpp"
-#include "component/window.hpp"
-#include "event/frameListener.hpp"
-#include "event/inputListener.hpp"
-#include "layout/borderLayout.hpp"
-#include "layout/layeredLayout.hpp"
-#include "layout/stackLayout.hpp"
-#include "model/boundedRangeModel.hpp"
+#include "../component/box.hpp"
+#include "../component/button.hpp"
+#include "../component/container.hpp"
+#include "../component/fpsLabel.hpp"
+#include "../component/label.hpp"
+#include "../component/panel.hpp"
+#include "../component/slider.hpp"
+#include "../component/window.hpp"
+#include "../event/frameListener.hpp"
+#include "../event/inputListener.hpp"
+#include "../layout/borderLayout.hpp"
+#include "../layout/layeredLayout.hpp"
+#include "../layout/stackLayout.hpp"
+#include "../model/boundedRangeModel.hpp"
+#include "../model/textModel.hpp"
 #include "player.hpp"
-#include "model/textModel.hpp"
 #include <raylib.h>
 #include <string>
 
@@ -151,6 +151,7 @@ int main(void){
 
     window.run();
 
+    // FUNCTIONNALITY
     // TODO timer
     // TODO slider
     // TODO scrollPane
@@ -165,10 +166,11 @@ int main(void){
     // TODO color vision handling
     // TODO narrator
 
+    // DEMO
     // TODO draw player
     // TODO draw player pos label
 
-    // TODO FIX Button is pressed on click outside then hover inside
+    // BUG MAYBE Button is pressed on click outside then hover inside
 
     return 0;
 }
