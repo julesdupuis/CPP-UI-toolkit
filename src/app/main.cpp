@@ -189,7 +189,6 @@ int main(void){
     // DEMO
     // TODO draw player
     // TODO draw player pos label
-    // TODO print layout debug info on key
 
     // BUG MAYBE Button is pressed on click outside then hover inside
 

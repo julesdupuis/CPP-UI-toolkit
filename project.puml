@@ -21,9 +21,6 @@ package app{
     }
 }
 
-main --> Player
-main --> PlayerListener
-
 package utils{
     class Bag<type>{
         -content : unordered_set<type>
@@ -42,9 +39,6 @@ package utils{
     }
     class "GlobalAccessor<EventDispatcher>" as GlobalAccessorEventDispatcher <<(T,LightBlue)>>
 }
-
-BagListener ..|> Bag
-GlobalAccessorEventDispatcher ..|> GlobalAccessor
 
 package event{
     class Listener{
@@ -69,26 +63,10 @@ package event{
         +addInputListener(Listener&)
         +removeInputListener(Listener&)
     }
-    class ActiveVariable<type>{
-        -variable : type
-        +get() : type
-        +set(type)
-        +addListener(Listener&)
-        +removeListener(Listener&)
-    }
     class FrameListener{
         {field} -action : function<void()>
     }
 }
-
-Listener <|-- FrameListener : +
-FrameListener <|-- InputListener : +
-Observable <|-- EventDispatcher : -
-Observable <|-- ActiveVariable : -
-
-Observable --> BagListener : listeners
-
-FrameListener --> EventDispatcher
 
 package component{
     class Component{
@@ -112,9 +90,6 @@ package component{
         -isMouseInside() : bool
         +setText(string)
         +setAction(Action)
-    }
-    class Action{
-        -name : string
     }
     class Container{
         +add(Component&, LayoutContraint constraint)
@@ -171,28 +146,6 @@ package component{
     }
 }
 
-Component <|-- Button : +
-Observable <|-- Action : +
-Component <|-- Container : +
-Container <|-- Panel : +
-Panel <|-- Window : +
-Component <|-- Label : +
-Label <|-- FPSLabel : +
-Component <|-- Box : +
-Component <|-- Slider : +
-
-Button --> Action
-Button --> "2" InputListener
-
-Window --> EventDispatcher
-Window ..> GlobalAccessorEventDispatcher : initialize
-
-FPSLabel --> FrameListener
-Box --> Component
-Slider --> "2" Action
-Slider --> "2" Listener
-Slider --> "2" Button
-
 package layout{
     interface LayoutManager{
         +addComponent(Component, LayoutContraint constraint)
@@ -219,17 +172,6 @@ package layout{
 
     }
 }
-
-LayoutManager <|-- OrientedLayout : +
-OrientedLayout <|.. BorderLayout : +
-OrientedLayout <|.. StackLayout : +
-LayoutManager <|.. LayeredLayout : +
-LayeredLayout <|-- FreeLayout : +
-
-Container --> LayoutManager
-BorderLayout --> "3" Component
-StackLayout --> "*" Component
-LayeredLayout --> "*" Component
 
 package model{
     class TextModel{
@@ -264,17 +206,77 @@ package model{
         +setCurrentValue(int)
         +setRatio(float)
     }
+    class Action{
+        -name : string
+    }
+    class ActiveVariable<type>{
+        -variable : type
+        +get() : type
+        +set(type)
+        +addListener(Listener&)
+        +removeListener(Listener&)
+    }
 }
 
-Observable <|-- BoundedRangeModel
+' INHERITANCE
+Listener <|-- FrameListener : +
+FrameListener <|-- InputListener : +
+Observable <|-- EventDispatcher : -
 
-Label --> TextModel
-Slider --> BoundedRangeModel
+Component <|-- Button : +
+Component <|-- Container : +
+Container <|-- Panel : +
+Panel <|-- Window : +
+Component <|-- Label : +
+Label <|-- FPSLabel : +
+Component <|-- Box : +
+Component <|-- Slider : +
+
+LayoutManager <|-- OrientedLayout : +
+OrientedLayout <|.. BorderLayout : +
+OrientedLayout <|.. StackLayout : +
+LayoutManager <|.. LayeredLayout : +
+LayeredLayout <|-- FreeLayout : +
+
+Observable <|-- BoundedRangeModel : +
+Observable <|-- Action : +
+Observable <|-- ActiveVariable : -
+
+' TEMPLATE INSTANCIATION
+BagListener ..|> Bag
+GlobalAccessorEventDispatcher ..|> GlobalAccessor
+
+' ATTRIBUTE MEMBERS
+main --> Player
+main --> PlayerListener
+main --> Window
+main --> Button
 
 PlayerListener --> "4" InputListener
 PlayerListener --> Player
 
-main --> Window
-main --> Button
+Observable --> BagListener : listeners
+
+FrameListener --> EventDispatcher
+
+Button --> "2" InputListener
+
+Window --> EventDispatcher
+Window ..> GlobalAccessorEventDispatcher : initialize
+
+FPSLabel --> FrameListener
+Box --> Component
+Slider --> "2" Listener
+Slider --> "2" Button
+
+Container --> LayoutManager
+BorderLayout --> "3" Component
+StackLayout --> "*" Component
+LayeredLayout --> "*" Component
+
+Button --> Action
+Label --> TextModel
+Slider --> BoundedRangeModel
+Slider --> "2" Action
 
 @enduml
