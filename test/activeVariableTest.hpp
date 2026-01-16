@@ -2,7 +2,7 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include "../src/event/activeVariable.hpp"
+#include "../src/model/activeVariable.hpp"
 #include "dummyClass.hpp"
 
 class ActiveVariableTest : public CppUnit::TestFixture{

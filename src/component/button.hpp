@@ -1,6 +1,6 @@
 #pragma once
 
-#include "action.hpp"
+#include "../model/action.hpp"
 #include "component.hpp"
 #include "../event/inputListener.hpp"
 #include <string>

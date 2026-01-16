@@ -1,7 +1,7 @@
 #pragma once
 
-#include "listener.hpp"
-#include "observable.hpp"
+#include "../event/listener.hpp"
+#include "../event/observable.hpp"
 #include <ostream>
 
 template<class type>
