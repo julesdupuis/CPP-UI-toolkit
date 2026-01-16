@@ -1,9 +1,9 @@
 #include "frameListener.hpp"
-#include "../utils/singleton.hpp"
+#include "../utils/globalAccessor.hpp"
 
 FrameListener::FrameListener(const std::function<void()>& action):
 Listener(action),
-dispatcher(Singleton<EventDispatcher>::instance()){
+dispatcher(GlobalAccessor<EventDispatcher>::instance()){
     dispatcher.addInputListener(*this);
 }
 

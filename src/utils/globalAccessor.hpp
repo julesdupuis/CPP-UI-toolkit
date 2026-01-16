@@ -4,12 +4,12 @@
 
 // class to provide global access to an object
 template<class type>
-class Singleton{
+class GlobalAccessor{
 
 private:
     static type* object;
     static bool initialised;
-    Singleton();
+    GlobalAccessor();
 
 public:
     static void create(type& object);
@@ -18,28 +18,28 @@ public:
 };
 
 template<class type>
-bool Singleton<type>::initialised = false;
+bool GlobalAccessor<type>::initialised = false;
 
 template<class type>
-type* Singleton<type>::object = nullptr;
+type* GlobalAccessor<type>::object = nullptr;
 
 template<class type>
-Singleton<type>::Singleton(){
+GlobalAccessor<type>::GlobalAccessor(){
     // hidden constructor
 }
 
 template<class type>
-void Singleton<type>::create(type& object){
+void GlobalAccessor<type>::create(type& object){
     if(!initialised){
-        Singleton<type>::object = &object;
-        Singleton<type>::initialised = true;
+        GlobalAccessor<type>::object = &object;
+        GlobalAccessor<type>::initialised = true;
     }
 }
 
 template<class type>
-type& Singleton<type>::instance(){
+type& GlobalAccessor<type>::instance(){
     if(!initialised){
-        throw std::logic_error("Singleton must be initialised");
+        throw std::logic_error("GlobalAccessor must be initialised");
     }
     return *object;
 }

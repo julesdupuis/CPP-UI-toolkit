@@ -33,18 +33,18 @@ package utils{
     }
     class "Bag<Listener*>" as BagListener <<(T,LightBlue)>>
 
-    class Singleton<type>{
+    class GlobalAccessor<type>{
         {static} -object : type&
         {static} -initialised : bool
-        -Singleton()
+        -GlobalAccessor()
         {static} +create(const type&)
         {static} +instance() : const type&
     }
-    class "Singleton<EventDispatcher>" as SingletonEventDispatcher <<(T,LightBlue)>>
+    class "GlobalAccessor<EventDispatcher>" as GlobalAccessorEventDispatcher <<(T,LightBlue)>>
 }
 
 BagListener ..|> Bag
-SingletonEventDispatcher ..|> Singleton
+GlobalAccessorEventDispatcher ..|> GlobalAccessor
 
 package event{
     class Listener{
@@ -185,7 +185,7 @@ Button --> Action
 Button --> "2" InputListener
 
 Window --> EventDispatcher
-Window ..> SingletonEventDispatcher : initialize
+Window ..> GlobalAccessorEventDispatcher : initialize
 
 FPSLabel --> FrameListener
 Box --> Component

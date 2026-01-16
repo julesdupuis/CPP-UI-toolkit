@@ -1,10 +1,10 @@
 #include "window.hpp"
-#include "../utils/singleton.hpp"
+#include "../utils/globalAccessor.hpp"
 #include "../event/inputListener.hpp"
 
 Window::Window(LayoutManager& layoutManager):
 Panel(layoutManager){
-    Singleton<EventDispatcher>::create(dispatcher);
+    GlobalAccessor<EventDispatcher>::create(dispatcher);
 
     // default size
     Vector2 size = {800, 450};
