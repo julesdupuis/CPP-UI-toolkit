@@ -13,7 +13,7 @@ int BoundedRangeModel::getCurrentValue() const{
 }
 
 float BoundedRangeModel::getRatio() const{
-    return static_cast<float>(getCurrentValue())/(static_cast<float>(getMaxValue() - getMinValue()));
+    return static_cast<float>(getCurrentValue() - getMinValue())/(static_cast<float>(getMaxValue() - getMinValue()));
 }
 
 void BoundedRangeModel::setMinValue(int value){
@@ -25,7 +25,27 @@ void BoundedRangeModel::setMaxValue(int value){
 }
 
 void BoundedRangeModel::setCurrentValue(int value){
-    if(value >= minValue && value <= maxValue){
-        currentValue = value;
+    if(value < minValue){
+        currentValue = minValue;
+        return;
     }
+    if(value > maxValue){
+        currentValue = maxValue;
+        return;
+    }
+    currentValue = value;
+    fireEvent();
+}
+
+void BoundedRangeModel::setRatio(float value){
+    if(value < 0.0f){
+        currentValue = minValue;
+        return;
+    }
+    if(value > 1.0f){
+        currentValue = maxValue;
+        return;
+    }
+    currentValue = (getMaxValue() - getMinValue()) * value;
+    fireEvent();
 }

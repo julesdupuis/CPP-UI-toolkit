@@ -12,6 +12,10 @@ TextModel& Label::getTextModel() const{
     return const_cast<TextModel&>(textModel);
 }
 
+void Label::setTextModel(TextModel& model){
+    textModel = model;
+}
+
 void Label::draw() const{
     if(!isShown()){
         return;

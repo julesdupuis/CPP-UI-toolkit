@@ -12,6 +12,7 @@ public:
     Label(TextModel& text);
 
     TextModel& getTextModel() const;
+    void setTextModel(TextModel& model);
 
     virtual void layout() override;
 

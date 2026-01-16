@@ -6,6 +6,16 @@ callback(action){
 
 }
 
+bool Listener::isEnabled() const{
+    return enabled;
+}
+
+void Listener::enable(bool value){
+    enabled = value;
+}
+
 void Listener::onEvent() const{
-    callback();
+    if(isEnabled()){
+        callback();
+    }
 }

@@ -14,6 +14,7 @@
 #include "../model/boundedRangeModel.hpp"
 #include "../model/textModel.hpp"
 #include "player.hpp"
+#include <iostream>
 #include <raylib.h>
 #include <string>
 
@@ -43,9 +44,20 @@ int main(void){
     });
 
     BoundedRangeModel rangeModel;
+    rangeModel.setMinValue(-30);
+    rangeModel.setMaxValue(70);
+    rangeModel.setCurrentValue(30);
+
+    InputListener rangePrinter([](){
+        return IsKeyReleased(KeyboardKey::KEY_R);
+    },
+    [&rangeModel](){
+        std::cerr<<"["<<rangeModel.getMinValue()<<","<<rangeModel.getMaxValue()<<"]="
+        <<rangeModel.getCurrentValue()<<"="<<rangeModel.getRatio()<<"\n";
+    });
+
     Slider slider(rangeModel);
     slider.setSize({100, 30});
-    rangeModel.setCurrentValue(70);
 
     StackLayout topPanelLayout(false);
     Panel topPanel(topPanelLayout);
@@ -165,10 +177,12 @@ int main(void){
     // TODO config menu
     // TODO color vision handling
     // TODO narrator
+    // TODO extreme sound user parametrisation
 
     // DEMO
     // TODO draw player
     // TODO draw player pos label
+    // TODO print layout debug info on key
 
     // BUG MAYBE Button is pressed on click outside then hover inside
 

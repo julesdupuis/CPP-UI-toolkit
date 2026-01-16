@@ -1,20 +1,16 @@
 #pragma once
 
-#include "eventDispatcher.hpp"
-#include "listener.hpp"
+#include "frameListener.hpp"
 #include <functional>
 
-class InputListener : public Listener{
+class InputListener : public FrameListener{
 
 private:
-    EventDispatcher& dispatcher;
-
     const std::function<bool()> inputTest;
     const std::function<void()> action;
     const std::function<void()> actionElse;
 
 public:
     InputListener(const std::function<bool()>& inputTest, const std::function<void()>& action, const std::function<void()>& actionElse = []{});
-    ~InputListener();
 
 };

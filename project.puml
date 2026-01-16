@@ -49,6 +49,9 @@ SingletonEventDispatcher ..|> Singleton
 package event{
     class Listener{
         -callback : function<void()>
+        -enabled : bool
+        +isEnabled() : bool
+        +enable(bool)
         +onEvent()
     }
     class Observable{
@@ -78,14 +81,13 @@ package event{
     }
 }
 
-Listener <|-- InputListener : +
 Listener <|-- FrameListener : +
+FrameListener <|-- InputListener : +
 Observable <|-- EventDispatcher : -
 Observable <|-- ActiveVariable : -
 
 Observable --> BagListener : listeners
 
-InputListener --> EventDispatcher
 FrameListener --> EventDispatcher
 
 package component{
@@ -129,6 +131,7 @@ package component{
     }
     class Label{
         +getTextModel() : TextModel
+        +setTextModel(TextModel)
     }
     class FPSLabel{
         -warningValue : int
@@ -157,7 +160,13 @@ package component{
         -barThickness : int
         -buttonThickness : int
         +isVertical() : bool
+        +setVertical(bool)
+        +getBarThickness() : int
+        +getButtonThickness() : int
+        +setBarThickness(int)
+        +setButtonThickness(int)
         +getBoundedRangeModel() : BoundedRangeModel
+        +setBoundedRangeModel(BoundedRangeModel)
     }
 }
 
@@ -251,8 +260,11 @@ package model{
         +setMinValue(int)
         +setMaxValue(int)
         +setCurrentValue(int)
+        +setRatio(float)
     }
 }
+
+Observable <|-- BoundedRangeModel
 
 Label --> TextModel
 Slider --> BoundedRangeModel

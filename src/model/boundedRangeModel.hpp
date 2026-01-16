@@ -1,6 +1,8 @@
 #pragma once
 
-class BoundedRangeModel{
+#include "../event/observable.hpp"
+
+class BoundedRangeModel : public Observable{
 
 private:
     int minValue = 0;
@@ -17,5 +19,7 @@ public:
     void setMinValue(int value);
     void setMaxValue(int value);
     void setCurrentValue(int value);
+
+    void setRatio(float value);
 
 };
