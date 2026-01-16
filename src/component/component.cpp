@@ -50,3 +50,17 @@ void Component::draw() const{
 bool Component::isMouseInside(){
     return CheckCollisionPointRec(GetMousePosition(), Rectangle{getPos().x, getPos().y, getSize().x, getSize().y});
 }
+
+void Component::toStr(std::ostream& stream) const{
+    stream<<getPos()<<", "<<getSize();
+}
+
+std::ostream& operator<<(std::ostream& stream, const Vector2& vec){
+    stream<<"["<<vec.x<<", "<<vec.y<<"]";
+    return stream;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Component& component){
+    component.toStr(stream);
+    return stream;
+}

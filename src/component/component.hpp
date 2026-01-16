@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <raylib.h>
 
 class Component{
@@ -32,4 +33,9 @@ public:
 
     bool isMouseInside();
 
+    virtual void toStr(std::ostream& stream) const;
+
 };
+
+std::ostream& operator<<(std::ostream& stream, const Vector2& vec);
+std::ostream& operator<<(std::ostream& stream, const Component& component);

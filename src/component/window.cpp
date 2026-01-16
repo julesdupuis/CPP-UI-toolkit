@@ -2,10 +2,6 @@
 #include "../utils/singleton.hpp"
 #include "../event/inputListener.hpp"
 
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
-
 Window::Window(LayoutManager& layoutManager):
 Panel(layoutManager){
     Singleton<EventDispatcher>::create(dispatcher);
@@ -59,9 +55,7 @@ void Window::draw() const{
     Container::draw();
 }
 
-void Window::layout(){
-#ifdef DEBUG_LAYOUT_SIZES
-    std::cerr<<"Window\n";
-#endif
-    Panel::layout();
+void Window::toStr(std::ostream& stream) const{
+    stream<<"Window : ";
+    Container::toStr(stream);
 }

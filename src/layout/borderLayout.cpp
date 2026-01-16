@@ -2,10 +2,6 @@
 #include <stdexcept>
 #include <string>
 
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
-
 const LayoutConstraint BorderLayout::Constraints::LEFT(static_cast<int>(ConstraintsEnum::LEFT));
 const LayoutConstraint BorderLayout::Constraints::RIGHT(static_cast<int>(ConstraintsEnum::RIGHT));
 const LayoutConstraint BorderLayout::Constraints::TOP(static_cast<int>(ConstraintsEnum::TOP)); // = LEFT;
@@ -67,11 +63,6 @@ void BorderLayout::foreachComponent(const std::function<void(const Component&)>&
 void BorderLayout::layout(Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
-
-#ifdef DEBUG_LAYOUT_SIZES
-    std::cerr<<"BorderLayout{"<<containerPos.x<<", "<<containerPos.y<<"}, {"
-    <<containerSize.x<<", "<<containerSize.y<<"}\n";
-#endif
 
     if(left != nullptr){
         Vector2 pos = containerPos;
@@ -142,4 +133,9 @@ void BorderLayout::layout(Component& managed){
         center->setSize(size);
         center->layout();
     }
+}
+
+void BorderLayout::toStr(std::ostream& stream) const{
+    stream<<"BorderLayout : ";
+    LayoutManager::toStr(stream);
 }

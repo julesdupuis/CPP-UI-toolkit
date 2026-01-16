@@ -1,9 +1,5 @@
 #include "button.hpp"
 
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
-
 Button::Button(Action& action):
 action(action),
 hoverListener([this]{return isMouseInside();},
@@ -111,11 +107,7 @@ void Button::draw() const{
     DrawText(text.c_str(), textBeginX, textBeginY, fontSize, BLACK);
 }
 
-void Button::layout(){
-#ifdef DEBUG_LAYOUT_SIZES
-    const Vector2 pos = getPos();
-    const Vector2 size = getSize();
-    std::cerr<<"Button{"<<pos.x<<", "<<pos.y<<"}, {"
-    <<size.x<<", "<<size.y<<"}\n";
-#endif
+void Button::toStr(std::ostream& stream) const{
+    stream<<"Button : ";
+    Component::toStr(stream);
 }

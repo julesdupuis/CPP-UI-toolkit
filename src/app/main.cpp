@@ -56,6 +56,13 @@ int main(void){
         <<rangeModel.getCurrentValue()<<"="<<rangeModel.getRatio()<<"\n";
     });
 
+    InputListener layoutDebugPrinter([](){
+        return IsKeyReleased(KeyboardKey::KEY_L);
+    },
+    [&window](){
+        std::cerr<<window<<"\n";
+    });
+
     Slider slider(rangeModel);
     slider.setSize({100, 30});
 

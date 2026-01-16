@@ -133,3 +133,8 @@ void Slider::layout(){
 void Slider::fit(){
 
 }
+
+void Slider::toStr(std::ostream& stream) const{
+    stream<<"Slider : ";
+    Component::toStr(stream);
+}

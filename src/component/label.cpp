@@ -1,9 +1,5 @@
 #include "label.hpp"
 
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
-
 Label::Label(TextModel& textModel):textModel(textModel){
 
 }
@@ -34,11 +30,7 @@ void Label::fit(){
     setSize(size);
 }
 
-void Label::layout(){
-#ifdef DEBUG_LAYOUT_SIZES
-    const Vector2 pos = getPos();
-    const Vector2 size = getSize();
-    std::cerr<<"Label{"<<pos.x<<", "<<pos.y<<"}, {"
-    <<size.x<<", "<<size.y<<"}\n";
-#endif
+void Label::toStr(std::ostream& stream) const{
+    stream<<"Label : ";
+    Component::toStr(stream);
 }

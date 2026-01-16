@@ -3,10 +3,6 @@
 #include <stdexcept>
 #include <string>
 
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
-
 const LayoutConstraint LayeredLayout::Constraints::FRONT(static_cast<int>(ConstraintsEnum::FRONT));
 const LayoutConstraint LayeredLayout::Constraints::BACK(static_cast<int>(ConstraintsEnum::BACK));
 
@@ -48,14 +44,14 @@ void LayeredLayout::layout(Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
-#ifdef DEBUG_LAYOUT_SIZES
-    std::cerr<<"LayeredLayout{"<<containerPos.x<<", "<<containerPos.y<<"}, {"
-    <<containerSize.x<<", "<<containerSize.y<<"}\n";
-#endif
-
     for(Component& current : content){
         current.setPos(containerPos);
         current.setSize(containerSize);
         current.layout();
     }
+}
+
+void LayeredLayout::toStr(std::ostream& stream) const{
+    stream<<"LayeredLayout : ";
+    LayoutManager::toStr(stream);
 }

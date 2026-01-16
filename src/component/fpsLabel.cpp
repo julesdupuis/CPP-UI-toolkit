@@ -3,10 +3,6 @@
 #include <raylib.h>
 #include <string>
 
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
-
 FPSLabel::FPSLabel():
 Label(fpsText),
 frameListener([this](){
@@ -41,13 +37,4 @@ void FPSLabel::setWarningColor(Color color){
 
 void FPSLabel::setLowColor(Color color){
     lowColor = color;
-}
-
-void FPSLabel::layout(){
-#ifdef DEBUG_LAYOUT_SIZES
-    const Vector2 pos = getPos();
-    const Vector2 size = getSize();
-    std::cerr<<"FPSLabel{"<<pos.x<<", "<<pos.y<<"}, {"
-    <<size.x<<", "<<size.y<<"}\n";
-#endif
 }

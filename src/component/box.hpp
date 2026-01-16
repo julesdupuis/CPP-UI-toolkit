@@ -24,4 +24,6 @@ public:
     virtual void layout() override;
     virtual void fit() override;
 
+    virtual void toStr(std::ostream& stream) const override;
+
 };

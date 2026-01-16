@@ -31,4 +31,5 @@ public:
 
     void setVertical(bool isVertical = false);
 
+    virtual void toStr(std::ostream& stream) const override;
 };

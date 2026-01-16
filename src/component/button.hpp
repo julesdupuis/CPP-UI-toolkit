@@ -28,9 +28,9 @@ public:
     Action& getAction() const;
     void setAction(Action& action);
 
-    virtual void layout() override;
-
     virtual void fit() override;
     virtual void draw() const override;
+
+    virtual void toStr(std::ostream& stream) const override;
 
 };

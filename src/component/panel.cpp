@@ -17,3 +17,8 @@ void Panel::draw() const{
     DrawRectangleV(getPos(), getSize(), getBackgroundColor());
     Container::draw();
 }
+
+void Panel::toStr(std::ostream& stream) const{
+    stream<<"Panel : ";
+    Container::toStr(stream);
+}

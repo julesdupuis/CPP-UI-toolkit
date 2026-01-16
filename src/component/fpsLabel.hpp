@@ -27,6 +27,4 @@ public:
     void setWarningColor(Color color);
     void setLowColor(Color color);
 
-    virtual void layout() override;
-
 };

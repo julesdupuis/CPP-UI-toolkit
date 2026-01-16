@@ -32,4 +32,6 @@ public:
 
     virtual void layout(Component& managed)=0;
 
+    virtual void toStr(std::ostream& stream) const;
+
 };

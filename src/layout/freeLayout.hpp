@@ -11,4 +11,5 @@ public:
 
     virtual void layout(Component& managed) override;
 
+    virtual void toStr(std::ostream& stream) const override;
 };

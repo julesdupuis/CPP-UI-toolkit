@@ -11,3 +11,12 @@ int LayoutConstraint::getValue() const{
 LayoutManager::LayoutManager(){
 
 }
+
+void LayoutManager::toStr(std::ostream& stream) const{
+    stream<<"{\n";
+    foreachComponent([&stream](const Component& component){
+        component.toStr(stream);
+        stream<<"\n";
+    });
+    stream<<"}";
+}

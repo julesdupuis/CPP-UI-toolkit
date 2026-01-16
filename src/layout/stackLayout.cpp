@@ -1,12 +1,7 @@
 #include "stackLayout.hpp"
-#include "layoutManager.hpp"
 #include <algorithm>
 #include <stdexcept>
 #include <string>
-
-#ifdef DEBUG_LAYOUT_SIZES
-#include <iostream>
-#endif
 
 const LayoutConstraint StackLayout::Constraints::FIRST(static_cast<int>(ConstraintsEnum::FIRST));
 const LayoutConstraint StackLayout::Constraints::LAST(static_cast<int>(ConstraintsEnum::LAST));
@@ -49,11 +44,6 @@ void StackLayout::layout(Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
-#ifdef DEBUG_LAYOUT_SIZES
-    std::cerr<<"StackLayout{"<<containerPos.x<<", "<<containerPos.y<<"}, {"
-    <<containerSize.x<<", "<<containerSize.y<<"}\n";
-#endif
-
     Vector2 currentPos = containerPos;
     if(isVertical()){
         for(Component& current : content){
@@ -74,4 +64,9 @@ void StackLayout::layout(Component& managed){
             current.layout();
         }
     }
+}
+
+void StackLayout::toStr(std::ostream& stream) const{
+    stream<<"StackLayout : ";
+    LayoutManager::toStr(stream);
 }

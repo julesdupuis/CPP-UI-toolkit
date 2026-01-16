@@ -56,3 +56,10 @@ void Box::fit(){
         setSize(componentSize);
     }
 }
+
+void Box::toStr(std::ostream& stream) const{
+    stream<<"Box : ";
+    Component::toStr(stream);
+    stream<<" => ";
+    component->toStr(stream);
+}

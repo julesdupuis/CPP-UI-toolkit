@@ -17,4 +17,5 @@ public:
     virtual void layout() override;
     virtual void draw() const override;
 
+    virtual void toStr(std::ostream& stream) const override;
 };

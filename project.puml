@@ -104,6 +104,7 @@ package component{
         +draw()
         +isShown() : bool
         +show(bool)
+        +toStr(ostream)
     }
     class Button{
         -text : string
@@ -198,6 +199,7 @@ package layout{
         +removeComponent(LayoutContraint constraint)
         +foreachComponents(function<void(Component)>)
         +layout(Component&)
+        +toStr(ostream)
     }
     abstract class OrientedLayout{
         -vertical : bool

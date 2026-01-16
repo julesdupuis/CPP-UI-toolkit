@@ -26,7 +26,5 @@ public:
     void run();
 
     virtual void draw() const override;
-
-    virtual void layout() override;
-
+    virtual void toStr(std::ostream& stream) const override;
 };

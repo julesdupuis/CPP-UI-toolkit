@@ -24,3 +24,9 @@ void Container::draw() const{
         component.draw();
     });
 }
+
+void Container::toStr(std::ostream& stream) const{
+    Component::toStr(stream);
+    stream<<" => ";
+    layoutManager.toStr(stream);
+}
