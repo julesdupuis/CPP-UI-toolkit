@@ -3,7 +3,6 @@
 #include "button.hpp"
 #include "component.hpp"
 #include "../model/boundedRangeModel.hpp"
-// #include "../event/frameListener.hpp"
 
 class Slider : public Component{
 
@@ -21,13 +20,17 @@ private:
     Button buttonPlus;
     Button buttonKnob;
 
-    Action actionMinus;
-    Action actionPlus;
-    Action actionKnob;
+    ButtonModel modelMinus;
+    ButtonModel modelPlus;
+    ButtonModel modelKnob;
     Listener minusListener;
     Listener plusListener;
     Listener knobListener;
-    // FrameListener knobMovementListener;
+    FrameListener knobMovementListener;
+    Listener knobGrabListener;
+    Listener knobUngrabListener;
+
+    Vector2 mousePosOnKnob = {0, 0};
 
 public:
     Slider(BoundedRangeModel& boundedRangeModel);

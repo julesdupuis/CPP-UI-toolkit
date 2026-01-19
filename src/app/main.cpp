@@ -16,6 +16,7 @@
 #include "player.hpp"
 #include <iostream>
 #include <raylib.h>
+#include <sstream>
 #include <string>
 
 int main(void){
@@ -52,9 +53,22 @@ int main(void){
         return IsKeyReleased(KeyboardKey::KEY_R);
     },
     [&rangeModel](){
-        std::cerr<<"["<<rangeModel.getMinValue()<<","<<rangeModel.getMaxValue()<<"]="
-        <<rangeModel.getCurrentValue()<<"="<<rangeModel.getRatio()<<"\n";
+        rangeModel.toStr(std::cerr);
+        std::cerr<<"\n";
     });
+
+    std::ostringstream rangeStrStream;
+    rangeModel.toStr(rangeStrStream);
+    TextModel rangeText(rangeStrStream.str());
+    rangeText.setFontSize(20);
+    Label rangeLabel(rangeText);
+
+    Listener rangeLabelListener([&rangeModel, &rangeText](){
+        std::ostringstream rangeStrStream;
+        rangeModel.toStr(rangeStrStream);
+        rangeText.setText(rangeStrStream.str());
+    });
+    rangeModel.subscribe(rangeLabelListener);
 
     InputListener layoutDebugPrinter([](){
         return IsKeyReleased(KeyboardKey::KEY_L);
@@ -72,18 +86,19 @@ int main(void){
     topPanel.add(runTimeLabel2, StackLayout::Constraints::LAST);
     topPanel.add(playerPosLabel, StackLayout::Constraints::LAST);
     topPanel.add(slider, StackLayout::Constraints::LAST);
+    topPanel.add(rangeLabel, StackLayout::Constraints::LAST);
 
     BorderLayout buttonPanelLayout;
     Panel buttonPanel(buttonPanelLayout);
     buttonPanel.setBackgroundColor(GRAY);
 
-    Action dummyAction;
+    ButtonModel dummyButtonModel;
 
-    Button button(dummyAction);
+    Button button(dummyButtonModel);
     button.setText("test button");
     button.fit();
 
-    Button buttonClick(dummyAction);
+    Button buttonClick(dummyButtonModel);
     buttonClick.setText("CLICK");
     buttonClick.setSize({50, 50});
 
@@ -95,7 +110,7 @@ int main(void){
     Label statusLabel2(statusText);
     statusLabel2.fit();
 
-    Button specialButton(dummyAction);
+    Button specialButton(dummyButtonModel);
     specialButton.setText("I AM SPECIAL");
     specialButton.fit();
 
@@ -170,12 +185,21 @@ int main(void){
 
     window.run();
 
+    rangeModel.unsubscribe(rangeLabelListener);
+
     // FUNCTIONNALITY
     // TODO timer
-    // TODO slider
     // TODO scrollPane
     // TODO list
     // TODO split pane
+    // TODO progress bar
+    // TODO combo box
+    // TODO radio button group
+    // TODO tabbed panel
+
+    // TODO MAYBE window destroy listener
+
+    // TODO component renderers
 
     // ACCESSIBILTY
     // TODO translatable string

@@ -2,9 +2,9 @@
 
 Slider::Slider(BoundedRangeModel& boundedRangeModel):
 rangeModel(boundedRangeModel),
-buttonMinus(actionMinus),
-buttonPlus(actionPlus),
-buttonKnob(actionKnob),
+buttonMinus(modelMinus),
+buttonPlus(modelPlus),
+buttonKnob(modelKnob),
 minusListener([this](){
     this->rangeModel.setCurrentValue(this->rangeModel.getCurrentValue()-10); // TODO change increment value
 }),
@@ -19,11 +19,33 @@ knobListener([this](){
         pos.x = barPos.x + (barSize.x - buttonThickness) * rangeModel.getRatio();
     }
     buttonKnob.setPos(pos);
+}),
+knobMovementListener([this](){
+    if(isVertical()){
+        rangeModel.setRatio(static_cast<float>(GetMouseY() - mousePosOnKnob.y - barPos.y)/static_cast<float>(barSize.y - buttonThickness));
+    }else{
+        rangeModel.setRatio(static_cast<float>(GetMouseX() - mousePosOnKnob.x - barPos.x)/static_cast<float>(barSize.x - buttonThickness));
+    }
+}),
+knobGrabListener([this](){
+    mousePosOnKnob = GetMousePosition();
+    const Vector2 buttonPos = buttonKnob.getPos();
+    mousePosOnKnob.x -= buttonPos.x;
+    mousePosOnKnob.y -= buttonPos.y;
+    knobMovementListener.enable(true);
+}),
+knobUngrabListener([this](){
+    knobMovementListener.enable(false);
 }){
-    actionMinus.subscribe(minusListener);
-    actionPlus.subscribe(plusListener);
-    // actionKnob.subscribe(knobListener);
+    modelMinus.subscribeRelease(minusListener);
+    modelPlus.subscribeRelease(plusListener);
     rangeModel.subscribe(knobListener);
+
+    modelKnob.subscribePress(knobGrabListener);
+    modelKnob.subscribeRelease(knobUngrabListener);
+    modelKnob.subscribeReleaseOutside(knobUngrabListener);
+
+    knobMovementListener.enable(false);
 
     buttonMinus.setText("-");
     buttonPlus.setText("+");
@@ -31,10 +53,13 @@ knobListener([this](){
 }
 
 Slider::~Slider(){
-    actionMinus.unsubscribe(minusListener);
-    actionPlus.unsubscribe(plusListener);
-    // actionKnob.unsubscribe(knobListener);
+    modelMinus.unsubscribeRelease(minusListener);
+    modelPlus.unsubscribeRelease(plusListener);
     rangeModel.unsubscribe(knobListener);
+
+    modelKnob.unsubscribePress(knobGrabListener);
+    modelKnob.unsubscribeRelease(knobUngrabListener);
+    modelKnob.unsubscribeReleaseOutside(knobUngrabListener);
 }
 
 BoundedRangeModel& Slider::getBoundedRangeModel() const{

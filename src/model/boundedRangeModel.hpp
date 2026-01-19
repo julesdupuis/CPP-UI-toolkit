@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../event/observable.hpp"
+#include <ostream>
 
 class BoundedRangeModel : public Observable{
 
@@ -21,5 +22,7 @@ public:
     void setCurrentValue(int value);
 
     void setRatio(float value);
+
+    virtual void toStr(std::ostream& stream) const;
 
 };

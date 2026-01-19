@@ -46,6 +46,11 @@ void BoundedRangeModel::setRatio(float value){
         currentValue = maxValue;
         return;
     }
-    currentValue = (getMaxValue() - getMinValue()) * value;
+    currentValue = (getMaxValue() - getMinValue()) * value + getMinValue();
     fireEvent();
+}
+
+void BoundedRangeModel::toStr(std::ostream& stream) const{
+    stream<<"["<<getMinValue()<<","<<getMaxValue()<<"]="
+        <<getCurrentValue()<<"="<<getRatio();
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../model/action.hpp"
+#include "../model/buttonModel.hpp"
 #include "component.hpp"
 #include "../event/inputListener.hpp"
 #include <string>
@@ -9,7 +9,7 @@ class Button : public Component{
 
 private:
     std::string text;
-    Action& action;
+    ButtonModel& buttonModel;
 
     enum class State{
         IDLE,
@@ -22,11 +22,12 @@ private:
     InputListener pressListener;
 
 public:
-    Button(Action& action);
+    Button(ButtonModel& buttonModel);
 
     void setText(const std::string& text);
-    Action& getAction() const;
-    void setAction(Action& action);
+
+    ButtonModel& getButtonModel() const;
+    void setButtonModel(ButtonModel& buttonModel);
 
     virtual void fit() override;
     virtual void draw() const override;

@@ -1,15 +1,17 @@
 #include "button.hpp"
 
-Button::Button(Action& action):
-action(action),
+Button::Button(ButtonModel& buttonModel):
+buttonModel(buttonModel),
 hoverListener([this]{return isMouseInside();},
 [this]{
     switch(state){
     case State::IDLE:
+        this->buttonModel.fireHoverInEvent();
         SetMouseCursor(MouseCursor::MOUSE_CURSOR_POINTING_HAND);
         state = State::HOVERED;
         break;
     case State::PRESSED_OUT:
+        this->buttonModel.firePressedEnteringEvent();
         state = State::PRESSED;
         break;
     default:
@@ -19,10 +21,12 @@ hoverListener([this]{return isMouseInside();},
 [this]{
     switch(state){
     case State::HOVERED:
+        this->buttonModel.fireHoverOutEvent();
         SetMouseCursor(MouseCursor::MOUSE_CURSOR_DEFAULT);
         state = State::IDLE;
         break;
     case State::PRESSED:
+        this->buttonModel.firePressedLeavingEvent();
         state = State::PRESSED_OUT;
         break;
     default:
@@ -33,6 +37,7 @@ pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
 [this]{
     switch(state){
     case State::HOVERED:
+        this->buttonModel.firePressEvent();
         state = State::PRESSED;
         break;
     default:
@@ -42,10 +47,11 @@ pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
 [this]{
     switch(state){
     case State::PRESSED:
-        this->action.fireEvent();
+        this->buttonModel.fireReleaseEvent();
         state = State::HOVERED;
         break;
     case State::PRESSED_OUT:
+        this->buttonModel.fireReleaseOutsideEvent();
         SetMouseCursor(MouseCursor::MOUSE_CURSOR_DEFAULT);
         state = State::IDLE;
         break;
@@ -60,12 +66,12 @@ void Button::setText(const std::string& text){
     this->text = text;
 }
 
-Action& Button::getAction() const{
-    return action;
+ButtonModel& Button::getButtonModel() const{
+    return buttonModel;
 }
 
-void Button::setAction(Action& action){
-    this->action = action;
+void Button::setButtonModel(ButtonModel& buttonModel){
+    this->buttonModel = buttonModel;
 }
 
 void Button::fit(){

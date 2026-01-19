@@ -89,7 +89,8 @@ package component{
         -state : State
         -isMouseInside() : bool
         +setText(string)
-        +setAction(Action)
+        +getButtonModel() : ButtonModel
+        +setButtonModel(ButtonModel)
     }
     class Container{
         +add(Component&, LayoutContraint constraint)
@@ -135,6 +136,9 @@ package component{
         -vertical : bool
         -barThickness : int
         -buttonThickness : int
+        -barPos : Vector2
+        -barSize : Vector2
+        -mousePoseOnKnob : Vector2
         +isVertical() : bool
         +setVertical(bool)
         +getBarThickness() : int
@@ -205,6 +209,7 @@ package model{
         +setMaxValue(int)
         +setCurrentValue(int)
         +setRatio(float)
+        +toStr(ostream)
     }
     class Action{
         -name : string
@@ -215,6 +220,35 @@ package model{
         +set(type)
         +addListener(Listener&)
         +removeListener(Listener&)
+    }
+    class ButtonModel{
+        +subscribePress(Listener)
+        +unsubscribePress(Listener)
+        +firePressEvent()
+
+        +subscribeRelease(Listener)
+        +unsubscribeRelease(Listener)
+        +fireReleaseEvent()
+
+        +subscribeReleaseOutside(Listener)
+        +unsubscribeReleaseOutside(Listener)
+        +fireReleaseOutsideEvent()
+
+        +subscribeHoverIn(Listener)
+        +unsubscribeHoverIn(Listener)
+        +fireHoverInEvent()
+
+        +subscribeHoverOut(Listener)
+        +unsubscribeHoverOut(Listener)
+        +fireHoverOutEvent()
+
+        +subscribePressedEntering(Listener)
+        +unsubscribePressedEntering(Listener)
+        +firePressedEnteringEvent()
+
+        +subscribePressedLeaving(Listener)
+        +unsubscribePressedLeaving(Listener)
+        +firePressedLeavingEvent()
     }
 }
 
@@ -260,23 +294,26 @@ Observable --> BagListener : listeners
 FrameListener --> EventDispatcher
 
 Button --> "2" InputListener
+Button --> ButtonModel
 
 Window --> EventDispatcher
 Window ..> GlobalAccessorEventDispatcher : initialize
 
+Label --> TextModel
 FPSLabel --> FrameListener
 Box --> Component
-Slider --> "2" Listener
-Slider --> "2" Button
+
+Slider --> "5" Listener
+Slider --> "3" Button
+Slider --> "3" ButtonModel
+Slider --> BoundedRangeModel
+Slider --> FrameListener
 
 Container --> LayoutManager
 BorderLayout --> "3" Component
 StackLayout --> "*" Component
 LayeredLayout --> "*" Component
 
-Button --> Action
-Label --> TextModel
-Slider --> BoundedRangeModel
-Slider --> "2" Action
+ButtonModel --> "7" Observable
 
 @enduml
