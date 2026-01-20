@@ -27,10 +27,12 @@ void BoundedRangeModel::setMaxValue(int value){
 void BoundedRangeModel::setCurrentValue(int value){
     if(value < minValue){
         currentValue = minValue;
+        fireEvent();
         return;
     }
     if(value > maxValue){
         currentValue = maxValue;
+        fireEvent();
         return;
     }
     currentValue = value;
@@ -40,10 +42,12 @@ void BoundedRangeModel::setCurrentValue(int value){
 void BoundedRangeModel::setRatio(float value){
     if(value < 0.0f){
         currentValue = minValue;
+        fireEvent();
         return;
     }
     if(value > 1.0f){
         currentValue = maxValue;
+        fireEvent();
         return;
     }
     currentValue = (getMaxValue() - getMinValue()) * value + getMinValue();
