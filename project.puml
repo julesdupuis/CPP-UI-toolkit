@@ -9,12 +9,26 @@ end note
 
 package app{
     () main
-    class Player{
+    class PlayerModel{
         -position : Vector2
         -speed : float
+        +getPos() : Vector2
+        +setPos(Vector2)
+        +getSpeed() : float
+        +setSpeed(float)
+
+        +subscribeMovementListener(Listener)
+        +unsubscribeMovementListener(Listener)
+    }
+    class Player{
         +move(Vector2)
         +getPos() : Vector2
         +getSpeed() : float
+
+        +subscribeMovementListener(Listener)
+        +unsubscribeMovementListener(Listener)
+
+        +draw()
     }
     class PlayerListener{
 
@@ -29,6 +43,7 @@ package utils{
         +foreach(function<void(type)>&)
     }
     class "Bag<Listener*>" as BagListener <<(T,LightBlue)>>
+    class "Bag<function<void()>*>" as BagFunction <<(T,LightBlue)>>
 
     class GlobalAccessor<type>{
         {static} -object : type&
@@ -42,7 +57,7 @@ package utils{
 
 package event{
     class Listener{
-        -callback : function<void()>
+        {field} -callback : function<void()>
         -enabled : bool
         +isEnabled() : bool
         +enable(bool)
@@ -145,6 +160,10 @@ package component{
         +setButtonThickness(int)
         +getBoundedRangeModel() : BoundedRangeModel
         +setBoundedRangeModel(BoundedRangeModel)
+    }
+    class Canva{
+        +subscribeDrawing(function<void()>)
+        +unsubscribeDrawing(function<void()>)
     }
 }
 
@@ -263,6 +282,7 @@ Component <|-- Label : +
 Label <|-- FPSLabel : +
 Component <|-- Box : +
 Component <|-- Slider : +
+Component <|-- Canva : +
 
 LayoutManager <|-- OrientedLayout : +
 OrientedLayout <|.. BorderLayout : +
@@ -276,10 +296,13 @@ Observable <|-- ActiveVariable : -
 
 ' TEMPLATE INSTANCIATION
 BagListener ..|> Bag
+BagFunction ..|> Bag
 GlobalAccessorEventDispatcher ..|> GlobalAccessor
 
 ' ATTRIBUTE MEMBERS
 main --> Player
+Player --> PlayerModel
+PlayerModel --> Observable
 main --> PlayerListener
 main --> Window
 main --> Button
@@ -313,5 +336,7 @@ StackLayout --> "*" Component
 LayeredLayout --> "*" Component
 
 ButtonModel --> "7" Observable
+
+Canva --> BagFunction : drawingFunctions
 
 @enduml

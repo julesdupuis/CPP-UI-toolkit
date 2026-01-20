@@ -6,6 +6,7 @@
 #include "../component/panel.hpp"
 #include "../component/slider.hpp"
 #include "../component/window.hpp"
+#include "../component/canva.hpp"
 #include "../event/frameListener.hpp"
 #include "../event/inputListener.hpp"
 #include "../layout/borderLayout.hpp"
@@ -24,21 +25,26 @@ int main(void){
     Window window(borderLayout);
     window.setTitle("Test Event-based API");
 
-    Player player;
+    Player player({100, 100});
     PlayerListener playerListener(player);
 
-    TextModel playerPosText("0, 0");
+    TextModel playerPosText("[0000, 0000]");
     Label playerPosLabel(playerPosText);
 
+    Listener playerMovementListener([&player, &playerPosText](){
+        playerPosText.setText("["+std::to_string(static_cast<int>(player.getPos().x))+", "+std::to_string(static_cast<int>(player.getPos().y))+"]");
+    });
+    player.subscribeMovementListener(playerMovementListener);
+
     float runTime = 0;
-    TextModel runTimeText(std::to_string(runTime));
+    TextModel runTimeText(std::string(TextFormat("%4.4f", runTime)));
     runTimeText.setFontSize(20);
     Label runTimeLabel(runTimeText);
     Label runTimeLabel2(runTimeText);
 
     FrameListener runTimeListener([&runTime, &runTimeText](){
         runTime += GetFrameTime();
-        runTimeText.setText(std::to_string(runTime));
+        runTimeText.setText(std::string(TextFormat("%4.1f", runTime)));
     });
 
     BoundedRangeModel rangeModel;
@@ -161,10 +167,14 @@ int main(void){
     Label feur2Label(feur2);
     Label feur3Label(feur3);
 
+    Canva mainCanva;
+    mainCanva.subscribeDrawing([&player](){player.draw();});
+
     centerPanel.add(feur1Label, LayeredLayout::Constraints::FRONT);
     centerPanel.add(feur2Label, LayeredLayout::Constraints::FRONT);
     centerPanel.add(feur3Label, LayeredLayout::Constraints::FRONT);
     centerPanel.add(runTimeLabel, LayeredLayout::Constraints::FRONT);
+    centerPanel.add(mainCanva, LayeredLayout::Constraints::FRONT);
 
     Label smallLabel1(statusText);
     Label smallLabel2(statusText);
@@ -204,6 +214,7 @@ int main(void){
     window.run();
 
     rangeModel.unsubscribe(rangeLabelListener);
+    player.unsubscribeMovementListener(playerMovementListener);
 
     // FUNCTIONNALITY
     // TODO timer
@@ -227,10 +238,6 @@ int main(void){
     // TODO color vision handling
     // TODO narrator
     // TODO extreme sound user parametrisation
-
-    // DEMO
-    // TODO draw player
-    // TODO draw player pos label
 
     // BUG MAYBE Button is pressed on click outside then hover inside
 
