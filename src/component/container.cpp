@@ -16,6 +16,10 @@ void Container::layout(){
     layoutManager.layout(*this);
 }
 
+void Container::fit(){
+    layoutManager.fit(*this);
+}
+
 void Container::draw() const{
     if(!isShown()){
         return;

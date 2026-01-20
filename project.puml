@@ -85,10 +85,8 @@ package component{
         +toStr(ostream)
     }
     class Button{
-        -text : string
         -state : State
         -isMouseInside() : bool
-        +setText(string)
         +getButtonModel() : ButtonModel
         +setButtonModel(ButtonModel)
     }
@@ -257,7 +255,7 @@ Listener <|-- FrameListener : +
 FrameListener <|-- InputListener : +
 Observable <|-- EventDispatcher : -
 
-Component <|-- Button : +
+Box <|-- Button : +
 Component <|-- Container : +
 Container <|-- Panel : +
 Panel <|-- Window : +

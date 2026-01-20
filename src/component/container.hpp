@@ -15,6 +15,7 @@ public:
     void remove(const LayoutConstraint& constraint);
 
     virtual void layout() override;
+    virtual void fit() override;
     virtual void draw() const override;
 
     virtual void toStr(std::ostream& stream) const override;

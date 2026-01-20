@@ -45,21 +45,28 @@ void Box::layout(){
         size.x -= insets.x + insets.z;
         size.y -= insets.y + insets.w;
         component->setSize(size);
+
+        component->layout();
     }
 }
 
 void Box::fit(){
     if(component != nullptr){
-        Vector2 componentSize = getSize();
+        component->fit();
+        Vector2 componentSize = component->getSize();
         componentSize.x += insets.x + insets.z;
         componentSize.y += insets.y + insets.w;
         setSize(componentSize);
+    }else{
+        setSize({10, 10});
     }
 }
 
 void Box::toStr(std::ostream& stream) const{
     stream<<"Box : ";
     Component::toStr(stream);
-    stream<<" => ";
-    component->toStr(stream);
+    if(component != nullptr){
+        stream<<" => ";
+        component->toStr(stream);
+    }
 }

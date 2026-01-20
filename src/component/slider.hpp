@@ -3,6 +3,8 @@
 #include "button.hpp"
 #include "component.hpp"
 #include "../model/boundedRangeModel.hpp"
+#include "../model/textModel.hpp"
+#include "label.hpp"
 
 class Slider : public Component{
 
@@ -15,6 +17,14 @@ private:
 
     Vector2 barPos;
     Vector2 barSize;
+
+    TextModel minusText;
+    TextModel plusText;
+    TextModel knobText;
+
+    Label minusLabel;
+    Label plusLabel;
+    Label knobLabel;
 
     Button buttonMinus;
     Button buttonPlus;

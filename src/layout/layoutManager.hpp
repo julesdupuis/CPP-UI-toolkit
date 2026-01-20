@@ -30,7 +30,10 @@ public:
 
     virtual void foreachComponent(const std::function<void(const Component&)>& function) const=0;
 
-    virtual void layout(Component& managed)=0;
+    // See Component::layout()
+    virtual void layout(const Component& managed)=0;
+    // See Component::fit()
+    virtual void fit(Component& managed)=0;
 
     virtual void toStr(std::ostream& stream) const;
 

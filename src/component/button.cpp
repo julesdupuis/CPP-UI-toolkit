@@ -59,11 +59,8 @@ pressListener([]{return IsMouseButtonDown(MouseButton::MOUSE_BUTTON_LEFT);},
         break;
     }
 }){
-
-}
-
-void Button::setText(const std::string& text){
-    this->text = text;
+    const int borderSize = 4;
+    setInsets({borderSize, borderSize, borderSize, borderSize});
 }
 
 ButtonModel& Button::getButtonModel() const{
@@ -72,14 +69,6 @@ ButtonModel& Button::getButtonModel() const{
 
 void Button::setButtonModel(ButtonModel& buttonModel){
     this->buttonModel = buttonModel;
-}
-
-void Button::fit(){
-    int fontSize = 10;
-    Vector2 size = MeasureTextEx(GetFontDefault(), text.c_str(), fontSize, 1);
-    size.x += 10*2;
-    size.y += 10*2;
-    setSize(size);
 }
 
 void Button::draw() const{
@@ -106,14 +95,10 @@ void Button::draw() const{
     }
     DrawRectangleV(getPos(), getSize(), buttonColor);
 
-    int fontSize = 10;
-    int textHorizontalSize = MeasureText(text.c_str(), fontSize);
-    int textBeginX = getPos().x + (getSize().x - textHorizontalSize)/2;
-    int textBeginY = getPos().y + (getSize().y - fontSize)/2;
-    DrawText(text.c_str(), textBeginX, textBeginY, fontSize, BLACK);
+    Box::draw();
 }
 
 void Button::toStr(std::ostream& stream) const{
     stream<<"Button : ";
-    Component::toStr(stream);
+    Box::toStr(stream);
 }

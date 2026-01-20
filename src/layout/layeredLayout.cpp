@@ -40,7 +40,7 @@ void LayeredLayout::foreachComponent(const std::function<void(const Component&)>
     std::for_each(content.cbegin(), content.cend(), function);
 }
 
-void LayeredLayout::layout(Component& managed){
+void LayeredLayout::layout(const Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
@@ -49,6 +49,20 @@ void LayeredLayout::layout(Component& managed){
         current.setSize(containerSize);
         current.layout();
     }
+}
+
+void LayeredLayout::fit(Component& managed){
+    Vector2 maxSize = {0, 0};
+
+    for(Component& current : content){
+        current.fit();
+        maxSize.x = std::max(maxSize.x, current.getSize().x);
+        maxSize.y = std::max(maxSize.y, current.getSize().y);
+    }
+    for(Component& current : content){
+        current.setSize(maxSize);
+    }
+    managed.setSize(maxSize);
 }
 
 void LayeredLayout::toStr(std::ostream& stream) const{

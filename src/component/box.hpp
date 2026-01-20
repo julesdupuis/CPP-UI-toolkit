@@ -5,7 +5,7 @@
 class Box : public Component{
 
 private:
-    Color backgroundColor = LIGHTGRAY;
+    Color backgroundColor = BLANK;
     Vector4 insets{0, 0, 0, 0};
 
     Component* component = nullptr;

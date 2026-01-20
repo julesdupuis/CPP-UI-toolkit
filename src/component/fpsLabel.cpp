@@ -1,10 +1,8 @@
 #include "fpsLabel.hpp"
-#include "label.hpp"
-#include <raylib.h>
-#include <string>
 
 FPSLabel::FPSLabel():
 Label(fpsText),
+fpsText("000 FPS"),
 frameListener([this](){
     const int fpsValue = GetFPS();
     fpsText.setText(std::to_string(fpsValue)+" FPS");

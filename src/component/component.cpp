@@ -1,4 +1,6 @@
 #include "component.hpp"
+#include <stdexcept>
+#include <string>
 
 Component::Component(Vector2 pos, Vector2 size):position(pos), size(size){
 
@@ -13,6 +15,11 @@ Vector2 Component::getPos() const{
 }
 
 void Component::setPos(Vector2 pos){
+    if(pos.x < 0 || pos.y < 0){
+        throw std::invalid_argument("invalid component position : ["
+            +std::to_string(pos.x)+", "
+            +std::to_string(pos.y)+"]");
+    }
     position = pos;
 }
 
@@ -21,6 +28,11 @@ Vector2 Component::getSize() const{
 }
 
 void Component::setSize(Vector2 size){
+    if(size.x < 0 || size.y < 0){
+        throw std::invalid_argument("invalid component size : ["
+            +std::to_string(size.x)+", "
+            +std::to_string(size.y)+"]");
+    }
     this->size = size;
 }
 

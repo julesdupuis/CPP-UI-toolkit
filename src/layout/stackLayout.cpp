@@ -40,7 +40,7 @@ void StackLayout::foreachComponent(const std::function<void(const Component&)>& 
     std::for_each(content.cbegin(), content.cend(), function);
 }
 
-void StackLayout::layout(Component& managed){
+void StackLayout::layout(const Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
@@ -48,21 +48,55 @@ void StackLayout::layout(Component& managed){
     if(isVertical()){
         for(Component& current : content){
             Vector2 currentSize = current.getSize();
-            currentSize.x = containerSize.x;
             current.setPos(currentPos);
             currentPos.y += currentSize.y;
+
+            currentSize.x = containerSize.x;
             current.setSize(currentSize);
+
             current.layout();
         }
     }else{
         for(Component& current : content){
             Vector2 currentSize = current.getSize();
-            currentSize.y = containerSize.y;
             current.setPos(currentPos);
             currentPos.x += currentSize.x;
+
+            currentSize.y = containerSize.y;
             current.setSize(currentSize);
+
             current.layout();
         }
+    }
+}
+
+void StackLayout::fit(Component& managed){
+    Vector2 maxSize = {0, 0};
+
+    if(isVertical()){
+        for(Component& current : content){
+            current.fit();
+            maxSize.x = std::max(maxSize.x, current.getSize().x);
+        }
+        for(Component& current : content){
+            Vector2 currentSize = current.getSize();
+            maxSize.y += currentSize.y;
+            currentSize.x = maxSize.x;
+            current.setSize(currentSize);
+        }
+        managed.setSize(maxSize);
+    }else{
+        for(Component& current : content){
+            current.fit();
+            maxSize.y = std::max(maxSize.y, current.getSize().y);
+        }
+        for(Component& current : content){
+            Vector2 currentSize = current.getSize();
+            maxSize.x += currentSize.x;
+            currentSize.y = maxSize.y;
+            current.setSize(currentSize);
+        }
+        managed.setSize(maxSize);
     }
 }
 

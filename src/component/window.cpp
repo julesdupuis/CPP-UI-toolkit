@@ -26,6 +26,8 @@ void Window::setTitle(std::string title){
 }
 
 void Window::run(){
+    fit();
+    setSize({static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())});
     layout();
 
     InputListener resizeListener(

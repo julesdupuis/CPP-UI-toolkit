@@ -5,7 +5,7 @@ Label::Label(TextModel& textModel):textModel(textModel){
 }
 
 TextModel& Label::getTextModel() const{
-    return const_cast<TextModel&>(textModel);
+    return textModel;
 }
 
 void Label::setTextModel(TextModel& model){
@@ -17,17 +17,21 @@ void Label::draw() const{
         return;
     }
     Vector2 pos = getPos();
-    const Vector2 textSize = getTextModel().getSize();
-    pos.x += (getSize().x - textSize.x)/2;
-    pos.y += (getSize().y - textSize.y)/2;
+    pos.x += center.x;
+    pos.y += center.y;
     textModel.draw(pos);
 }
 
+void Label::layout(){
+    const Vector2 textSize = textModel.getSize();
+
+    center.x = (getSize().x - textSize.x)/2;
+    center.y = (getSize().y - textSize.y)/2;
+}
+
 void Label::fit(){
-    Vector2 size = textModel.getSize();
-    size.x += 20;
-    size.y += 20;
-    setSize(size);
+    const Vector2 textSize = textModel.getSize();
+    setSize(textSize);
 }
 
 void Label::toStr(std::ostream& stream) const{

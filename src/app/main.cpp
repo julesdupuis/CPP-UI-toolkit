@@ -29,15 +29,12 @@ int main(void){
 
     TextModel playerPosText("0, 0");
     Label playerPosLabel(playerPosText);
-    playerPosLabel.fit();
 
     float runTime = 0;
     TextModel runTimeText(std::to_string(runTime));
     runTimeText.setFontSize(20);
     Label runTimeLabel(runTimeText);
-    runTimeLabel.fit();
     Label runTimeLabel2(runTimeText);
-    runTimeLabel2.fit();
 
     FrameListener runTimeListener([&runTime, &runTimeText](){
         runTime += GetFrameTime();
@@ -78,7 +75,6 @@ int main(void){
     });
 
     Slider slider(rangeModel);
-    slider.setSize({100, 30});
 
     StackLayout topPanelLayout(false);
     Panel topPanel(topPanelLayout);
@@ -94,25 +90,26 @@ int main(void){
 
     ButtonModel dummyButtonModel;
 
-    Button button(dummyButtonModel);
-    button.setText("test button");
-    button.fit();
+    TextModel testButtonText("test button");
+    Label testButtonLabel(testButtonText);
+    Button testButton(dummyButtonModel);
+    testButton.add(testButtonLabel);
 
+    TextModel clickButtonText("CLICK");
+    Label clickButtonLabel(clickButtonText);
     Button buttonClick(dummyButtonModel);
-    buttonClick.setText("CLICK");
-    buttonClick.setSize({50, 50});
+    buttonClick.add(clickButtonLabel);
 
     TextModel statusText("HELLO WORLD");
     statusText.setFontSize(20);
     Label statusLabel(statusText);
-    statusLabel.fit();
 
     Label statusLabel2(statusText);
-    statusLabel2.fit();
 
+    TextModel specialButtonText("I AM SPECIAL");
+    Label specialButtonLabel(specialButtonText);
     Button specialButton(dummyButtonModel);
-    specialButton.setText("I AM SPECIAL");
-    specialButton.fit();
+    specialButton.add(specialButtonLabel);
 
     FPSLabel fpsLabel;
     InputListener fpsShowing([](){
@@ -140,7 +137,7 @@ int main(void){
     statusPanel.add(fpsBox, StackLayout::Constraints::LAST);
 
     buttonPanel.add(buttonClick, BorderLayout::Constraints::LEFT);
-    buttonPanel.add(button, BorderLayout::Constraints::RIGHT);
+    buttonPanel.add(testButton, BorderLayout::Constraints::RIGHT);
     buttonPanel.add(statusPanel, BorderLayout::Constraints::CENTER);
 
     LayeredLayout centerLayout;
@@ -169,6 +166,27 @@ int main(void){
     centerPanel.add(feur3Label, LayeredLayout::Constraints::FRONT);
     centerPanel.add(runTimeLabel, LayeredLayout::Constraints::FRONT);
 
+    Label smallLabel1(statusText);
+    Label smallLabel2(statusText);
+    Label smallLabel3(statusText);
+
+    Box middleBox;
+    middleBox.add(smallLabel2);
+    middleBox.SetBackgroundColor(PURPLE);
+    middleBox.setInsets({5, 10, 0, 0});
+
+    StackLayout smallStacklayout;
+    Panel smallPanel(smallStacklayout);
+    smallPanel.setBackgroundColor(PINK);
+    smallPanel.add(smallLabel1, StackLayout::Constraints::LAST);
+    smallPanel.add(middleBox, StackLayout::Constraints::LAST);
+    smallPanel.add(smallLabel3, StackLayout::Constraints::LAST);
+
+    BorderLayout centerBl2(true);
+    Container centerPanel2(centerBl2);
+    centerPanel2.add(smallPanel, BorderLayout::Constraints::BOTTOM);
+    centerPanel2.add(centerPanel, BorderLayout::Constraints::CENTER);
+
     BorderLayout centerBL;
     Panel centerPanelSides(centerBL);
     centerPanelSides.setBackgroundColor(BLANK);
@@ -176,7 +194,7 @@ int main(void){
     Slider sideSlider(rangeModel);
     sideSlider.setVertical(true);
 
-    centerPanelSides.add(centerPanel, BorderLayout::Constraints::CENTER);
+    centerPanelSides.add(centerPanel2, BorderLayout::Constraints::CENTER);
     centerPanelSides.add(sideSlider, BorderLayout::Constraints::RIGHT);
 
     window.add(topPanel, BorderLayout::Constraints::LEFT);

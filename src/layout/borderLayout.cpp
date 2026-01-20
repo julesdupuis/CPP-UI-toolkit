@@ -60,7 +60,7 @@ void BorderLayout::foreachComponent(const std::function<void(const Component&)>&
     }
 }
 
-void BorderLayout::layout(Component& managed){
+void BorderLayout::layout(const Component& managed){
     const Vector2 containerPos = managed.getPos();
     const Vector2 containerSize = managed.getSize();
 
@@ -133,6 +133,48 @@ void BorderLayout::layout(Component& managed){
         center->setSize(size);
         center->layout();
     }
+}
+
+void BorderLayout::fit(Component& managed){
+    Vector2 containerSize = {0, 0};
+
+    if(left != nullptr){
+        left->fit();
+        const Vector2 size = left->getSize();
+
+        if(isVertical()){
+            containerSize.y += size.y;
+            containerSize.x = std::max(containerSize.x, size.x);
+        }else{
+            containerSize.x += size.x;
+            containerSize.y = std::max(containerSize.y, size.y);
+        }
+    }
+    if(right != nullptr){
+        right->fit();
+        const Vector2 size = right->getSize();
+
+        if(isVertical()){
+            containerSize.y += size.y;
+            containerSize.x = std::max(containerSize.x, size.x);
+        }else{
+            containerSize.x += size.x;
+            containerSize.y = std::max(containerSize.y, size.y);
+        }
+    }
+    if(center != nullptr){
+        center->fit();
+        const Vector2 size = center->getSize();
+
+        if(isVertical()){
+            containerSize.y += size.y;
+            containerSize.x = std::max(containerSize.x, size.x);
+        }else{
+            containerSize.x += size.x;
+            containerSize.y = std::max(containerSize.y, size.y);
+        }
+    }
+    managed.setSize(containerSize);
 }
 
 void BorderLayout::toStr(std::ostream& stream) const{

@@ -20,11 +20,14 @@ public:
     Vector2 getSize() const;
     void setSize(Vector2 size);
 
-    // set the size of the component to fit the size of it's content
+    // Set the size of the component to fit the size of it's content.
+    // The underlying components should not be resized here.
     virtual void fit();
 
-    // set the size and position of contained components
-    // to correctly set the layout
+    // Set the size and position of underlying components
+    // to correctly set the layout.
+    // The position and size of this component is considered final
+    // from this function perspective.
     virtual void layout();
     virtual void draw() const;
 
