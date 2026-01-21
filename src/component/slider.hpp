@@ -1,16 +1,15 @@
 #pragma once
 
 #include "button.hpp"
-#include "component.hpp"
+#include "orientedComponent.hpp"
 #include "../model/boundedRangeModel.hpp"
 #include "../model/textModel.hpp"
 #include "label.hpp"
 
-class Slider : public Component{
+class Slider : public OrientedComponent{
 
 private:
     BoundedRangeModel& rangeModel;
-    bool vertical = false;
 
     int barThickness = 5;
     int buttonThickness = 20;
@@ -48,9 +47,6 @@ public:
 
     BoundedRangeModel& getBoundedRangeModel() const;
     void setBoundedRangeModel(BoundedRangeModel& model);
-
-    bool isVertical() const;
-    void setVertical(bool isVertical);
 
     int getBarThickness() const;
     int getButtonThickness() const;

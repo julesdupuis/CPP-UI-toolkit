@@ -77,14 +77,6 @@ void Slider::setBoundedRangeModel(BoundedRangeModel& model){
     rangeModel = model;
 }
 
-bool Slider::isVertical() const{
-    return vertical;
-}
-
-void Slider::setVertical(bool isVertical){
-    vertical = isVertical;
-}
-
 void Slider::setBarThickness(int value){
     barThickness = value;
 }
@@ -173,7 +165,7 @@ void Slider::fit(){
     }
     buttonPlus.setSize(buttonPlusSize);
 
-    // 5 pixels per units of range
+    // pixels per units of range
     const int unitSize = 2;
     barSize = {0, 0};
     if(isVertical()){
@@ -206,5 +198,5 @@ void Slider::fit(){
 
 void Slider::toStr(std::ostream& stream) const{
     stream<<"Slider : ";
-    Component::toStr(stream);
+    OrientedComponent::toStr(stream);
 }

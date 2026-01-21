@@ -157,14 +157,11 @@ package component{
         +remove()
     }
     class Slider{
-        -vertical : bool
         -barThickness : int
         -buttonThickness : int
         -barPos : Vector2
         -barSize : Vector2
         -mousePoseOnKnob : Vector2
-        +isVertical() : bool
-        +setVertical(bool)
         +getBarThickness() : int
         +getButtonThickness() : int
         +setBarThickness(int)
@@ -175,6 +172,17 @@ package component{
     class Canva{
         +subscribeDrawing(function<void()>)
         +unsubscribeDrawing(function<void()>)
+    }
+    abstract OrientedComponent{
+        -vertical : bool
+        +isVertical() : bool
+        +setVertical(bool)
+    }
+    class Gauge{
+        +getBoundedRangeModel() : BoundedRangeModel
+        +setBoundedRangeModel(BoundedRangeModel)
+
+        +setBarColor(Color)
     }
 }
 
@@ -293,8 +301,9 @@ Panel <|-- Window : +
 Component <|-- Label : +
 Label <|-- FPSLabel : +
 Component <|-- Box : +
-Component <|-- Slider : +
+OrientedComponent <|-- Slider : +
 Component <|-- Canva : +
+OrientedComponent <|-- Gauge : +
 
 LayoutManager <|-- OrientedLayout : +
 OrientedLayout <|.. BorderLayout : +
@@ -350,5 +359,7 @@ LayeredLayout --> "*" Component
 ButtonModel --> "7" Observable
 
 Canva --> BagFunction : drawingFunctions
+
+Gauge --> BoundedRangeModel
 
 @enduml

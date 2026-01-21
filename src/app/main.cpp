@@ -7,6 +7,7 @@
 #include "../component/slider.hpp"
 #include "../component/window.hpp"
 #include "../component/canva.hpp"
+#include "../component/gauge.hpp"
 #include "../event/frameListener.hpp"
 #include "../event/inputListener.hpp"
 #include "../event/timer.hpp"
@@ -191,11 +192,14 @@ int main(void){
     middleBox.SetBackgroundColor(PURPLE);
     middleBox.setInsets({5, 10, 0, 0});
 
+    Gauge gaugeSlider(rangeModel);
+
     StackLayout smallStacklayout;
     Panel smallPanel(smallStacklayout);
     smallPanel.setBackgroundColor(PINK);
     smallPanel.add(smallLabel1, StackLayout::Constraints::LAST);
     smallPanel.add(middleBox, StackLayout::Constraints::LAST);
+    smallPanel.add(gaugeSlider, StackLayout::Constraints::LAST);
     smallPanel.add(smallLabel3, StackLayout::Constraints::LAST);
 
     BorderLayout centerBl2(true);
@@ -226,7 +230,6 @@ int main(void){
     // TODO scrollPane
     // TODO list
     // TODO split pane
-    // TODO progress bar
     // TODO combo box
     // TODO radio button group
     // TODO tabbed panel
