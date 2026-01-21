@@ -13,6 +13,9 @@ void Canva::unsubscribeDrawing(const std::function<void()>& draw){
 }
 
 void Canva::draw() const{
+    if(!isShown()){
+        return;
+    }
     drawings.foreach([](const std::function<void()>* const& drawFunction){
         (*drawFunction)();
     });

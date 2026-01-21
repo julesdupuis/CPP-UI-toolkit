@@ -18,6 +18,9 @@ void Gauge::SetBarColor(Color color){
 }
 
 void Gauge::draw() const{
+    if(!isShown()){
+        return;
+    }
     Vector2 size = getSize();
     if(isVertical()){
         size.y *= rangeModel.getRatio();

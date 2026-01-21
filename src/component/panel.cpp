@@ -13,6 +13,9 @@ void Panel::setBackgroundColor(Color color){
 }
 
 void Panel::draw() const{
+    if(!isShown()){
+        return;
+    }
     // draw background
     DrawRectangleV(getPos(), getSize(), getBackgroundColor());
     Container::draw();

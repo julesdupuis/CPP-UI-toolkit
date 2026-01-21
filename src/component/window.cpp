@@ -54,6 +54,9 @@ void Window::run(){
 
 void Window::draw() const{
     ClearBackground(getBackgroundColor());
+    if(!isShown()){
+        return;
+    }
     Container::draw();
 }
 
