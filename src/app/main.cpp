@@ -9,6 +9,7 @@
 #include "../component/canva.hpp"
 #include "../event/frameListener.hpp"
 #include "../event/inputListener.hpp"
+#include "../event/timer.hpp"
 #include "../layout/borderLayout.hpp"
 #include "../layout/layeredLayout.hpp"
 #include "../layout/stackLayout.hpp"
@@ -142,6 +143,11 @@ int main(void){
     statusPanel.add(statusLabel2, StackLayout::Constraints::LAST);
     statusPanel.add(fpsBox, StackLayout::Constraints::LAST);
 
+    Timer statusTimer(5, [&statusLabel2](){
+        statusLabel2.show(!statusLabel2.isShown());
+    });
+    statusTimer.start();
+
     buttonPanel.add(buttonClick, BorderLayout::Constraints::LEFT);
     buttonPanel.add(testButton, BorderLayout::Constraints::RIGHT);
     buttonPanel.add(statusPanel, BorderLayout::Constraints::CENTER);
@@ -217,7 +223,6 @@ int main(void){
     player.unsubscribeMovementListener(playerMovementListener);
 
     // FUNCTIONNALITY
-    // TODO timer
     // TODO scrollPane
     // TODO list
     // TODO split pane

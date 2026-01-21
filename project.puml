@@ -81,6 +81,17 @@ package event{
     class FrameListener{
         {field} -action : function<void()>
     }
+    class Timer{
+        -time : float
+        {field} -callback : function<void()>
+        -accumulatedTime : float
+        +getTime() : float
+        +setTime(float)
+
+        +start()
+        +stop()
+        +reset()
+    }
 }
 
 package component{
@@ -273,6 +284,7 @@ package model{
 Listener <|-- FrameListener : +
 FrameListener <|-- InputListener : +
 Observable <|-- EventDispatcher : -
+FrameListener <|-- Timer : +
 
 Box <|-- Button : +
 Component <|-- Container : +
