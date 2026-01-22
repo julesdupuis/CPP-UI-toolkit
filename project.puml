@@ -184,6 +184,10 @@ package component{
 
         +setBarColor(Color)
     }
+    class TextInputBar{
+        +getPhantomText() : string
+        +setPhantomText(string)
+    }
 }
 
 package layout{
@@ -304,6 +308,7 @@ Component <|-- Box : +
 OrientedComponent <|-- Slider : +
 Component <|-- Canva : +
 OrientedComponent <|-- Gauge : +
+Label <|-- TextInputBar : +
 
 LayoutManager <|-- OrientedLayout : +
 OrientedLayout <|.. BorderLayout : +
@@ -326,7 +331,6 @@ Player --> PlayerModel
 PlayerModel --> Observable
 main --> PlayerListener
 main --> Window
-main --> Button
 
 PlayerListener --> "4" InputListener
 PlayerListener --> Player
@@ -361,5 +365,9 @@ ButtonModel --> "7" Observable
 Canva --> BagFunction : drawingFunctions
 
 Gauge --> BoundedRangeModel
+
+TextInputBar --> FrameListener
+TextInputBar --> "2" Timer
+TextInputBar --> "3" InputListener
 
 @enduml

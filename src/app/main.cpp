@@ -8,6 +8,7 @@
 #include "../component/window.hpp"
 #include "../component/canva.hpp"
 #include "../component/gauge.hpp"
+#include "../component/textInputBar.hpp"
 #include "../event/frameListener.hpp"
 #include "../event/inputListener.hpp"
 #include "../event/timer.hpp"
@@ -136,6 +137,10 @@ int main(void){
     fpsBox.setInsets({10, 10, 10, 10});
     fpsBox.SetBackgroundColor(DARKBROWN);
 
+    TextModel inputModel;
+    inputModel.setFontSize(20);
+    TextInputBar textInput(inputModel, "phantom");
+
     StackLayout statusLayout(false);
     Panel statusPanel(statusLayout);
     statusPanel.setBackgroundColor(BLUE);
@@ -143,6 +148,7 @@ int main(void){
     statusPanel.add(specialButton, StackLayout::Constraints::LAST);
     statusPanel.add(statusLabel2, StackLayout::Constraints::LAST);
     statusPanel.add(fpsBox, StackLayout::Constraints::LAST);
+    statusPanel.add(textInput, StackLayout::Constraints::LAST);
 
     Timer statusTimer(5, [&statusLabel2](){
         statusLabel2.show(!statusLabel2.isShown());
@@ -233,10 +239,12 @@ int main(void){
     // TODO combo box
     // TODO radio button group
     // TODO tabbed panel
+    // TODO internal window/movable panel
 
     // TODO MAYBE window destroy listener
 
     // TODO component renderers
+    // TODO default model factory
 
     // ACCESSIBILTY
     // TODO translatable string
