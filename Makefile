@@ -3,7 +3,7 @@ BUILD_DIR:=build
 DEBUG_FLAGS=
 
 CXX:=clang++
-CXXFLAGS:=-Wall -Wextra -g -std=c++17 -MMD $(DEBUG_FLAGS)
+CXXFLAGS:=-Wall -Wextra -g -fno-omit-frame-pointer -std=c++17 -MMD $(DEBUG_FLAGS)
 LDFLAGS:=-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 SRC_APP_FILES:=$(wildcard src/app/*.cpp)
