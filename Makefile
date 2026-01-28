@@ -25,10 +25,10 @@ VPATH=test src/app src/utils src/event src/component src/layout src/model src/re
 all : run
 
 test.run : $(TEST_FILES) $(TEST_SRC_FILES) | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -lcppunit -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) -lcppunit
 
 main.run : $(SRC_FILES) | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(BUILD_DIR) :
 	mkdir -p $@
