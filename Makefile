@@ -11,15 +11,16 @@ SRC_EVENT_FILES:=$(wildcard src/event/*.cpp)
 SRC_COMPONENT_FILES:=$(wildcard src/component/*.cpp)
 SRC_LAYOUT_FILES:=$(wildcard src/layout/*.cpp)
 SRC_MODEL_FILES:=$(wildcard src/model/*.cpp)
+SRC_RENDERERS_FILES:=$(wildcard src/renderers/*.cpp)
 
-SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(SRC_APP_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES) $(SRC_LAYOUT_FILES) $(SRC_MODEL_FILES))))
+SRC_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(SRC_APP_FILES) $(SRC_EVENT_FILES) $(SRC_COMPONENT_FILES) $(SRC_LAYOUT_FILES) $(SRC_MODEL_FILES) $(SRC_RENDERERS_FILES))))
 
 TEST_SRC_FILES:=$(addprefix $(BUILD_DIR)/, observable.o listener.o boundedRangeModel.o)
 
 TEST_FILES:=$(addprefix $(BUILD_DIR)/, $(patsubst %.cpp, %.o, $(notdir $(wildcard test/*.cpp))))
 
 DEPENDENCIES:=$(wildcard build/*.d)
-VPATH=test src/app src/utils src/event src/component src/layout src/model
+VPATH=test src/app src/utils src/event src/component src/layout src/model src/renderers
 
 all : run
 
