@@ -11,8 +11,6 @@ class TextInputBar : public Label{
 private:
     TextModel phantomText;
 
-    const int cursorWidth = 5;
-
     FrameListener keyboardInputListener;
     InputListener erasingPressListener;
     InputListener erasingReleaseListener;
@@ -21,7 +19,7 @@ private:
     Timer eraser;
 
 public:
-    TextInputBar(TextModel& text, std::string phantomText="");
+    TextInputBar(TextModel& text, TextRenderer& renderer);
 
     std::string getPhantomText() const;
     void setPhantomText(std::string text);

@@ -1,6 +1,9 @@
 #include "label.hpp"
+#include <functional>
 
-Label::Label(TextModel& textModel):textModel(textModel){
+Label::Label(TextModel& textModel, TextRenderer& textRenderer):
+textModel(textModel),
+renderer(std::ref(textRenderer)){
 
 }
 
@@ -12,25 +15,27 @@ void Label::setTextModel(TextModel& model){
     textModel = model;
 }
 
+LabelRenderer& Label::getLabelRenderer() const{
+    return renderer;
+}
+
+void Label::setLabelRenderer(LabelRenderer& renderer){
+    this->renderer = renderer;
+}
+
 void Label::draw() const{
     if(!isShown()){
         return;
     }
-    Vector2 pos = getPos();
-    pos.x += center.x;
-    pos.y += center.y;
-    textModel.draw(pos);
+    renderer.drawText(getPos(), getTextModel());
 }
 
 void Label::layout(){
-    const Vector2 textSize = textModel.getSize();
 
-    center.x = (getSize().x - textSize.x)/2;
-    center.y = (getSize().y - textSize.y)/2;
 }
 
 void Label::fit(){
-    const Vector2 textSize = textModel.getSize();
+    const Vector2 textSize = renderer.getSize(getTextModel());
     setSize(textSize);
 }
 

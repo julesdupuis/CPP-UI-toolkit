@@ -8,6 +8,7 @@ class FPSLabel : public Label{
 
 private:
     TextModel fpsText;
+    TextRenderer fpsTextRenderer;
     FrameListener frameListener;
 
     int warningValue = 30;

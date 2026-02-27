@@ -2,9 +2,8 @@
 #include <cstring>
 
 // TODO multiline
-TextInputBar::TextInputBar(TextModel& text, std::string phantomText):
-Label(text),
-phantomText(phantomText),
+TextInputBar::TextInputBar(TextModel& text, TextRenderer& renderer):
+Label(text, renderer),
 keyboardInputListener([this](){
     std::string originalText = this->getTextModel().getText();
     int codepoint = 0;
@@ -75,7 +74,7 @@ void TextInputBar::draw() const{
         return;
     }
     if(std::strlen(getTextModel().getText().c_str()) <= 0){
-        phantomText.draw(getPos());
+        getTextRenderer().drawText(getPos(), phantomText);
     }else{
         Label::draw();
     }
@@ -84,10 +83,9 @@ void TextInputBar::draw() const{
         return;
     }
     const Vector2 pos = getPos();
-    const Vector2 textSize = getTextModel().getSize();
+    const Vector2 textSize = getTextRenderer().getSize(getTextModel());
     const Vector2 cursorPos = {pos.x + textSize.x, pos.y};
-    const Vector2 cursorSize = {static_cast<float>(cursorWidth), textSize.y};
-    DrawRectangleV(cursorPos, cursorSize, BLACK);
+    getTextRenderer().drawCursor(cursorPos);
 }
 
 void TextInputBar::toStr(std::ostream& stream) const{

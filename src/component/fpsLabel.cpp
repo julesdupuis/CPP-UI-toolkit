@@ -1,7 +1,7 @@
 #include "fpsLabel.hpp"
 
 FPSLabel::FPSLabel():
-Label(fpsText),
+Label(fpsText, fpsTextRenderer),
 fpsText("000 FPS"),
 frameListener([this](){
     const int fpsValue = GetFPS();
@@ -12,7 +12,7 @@ frameListener([this](){
     }else if(fpsValue < lowValue){
         fpsColor = lowColor;
     }
-    fpsText.setColor(fpsColor);
+    fpsTextRenderer.setColor(fpsColor);
 }){
 
 }

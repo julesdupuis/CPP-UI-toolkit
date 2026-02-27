@@ -16,7 +16,6 @@
 #include "../layout/layeredLayout.hpp"
 #include "../layout/stackLayout.hpp"
 #include "../model/boundedRangeModel.hpp"
-#include "../model/textModel.hpp"
 #include "player.hpp"
 #include <iostream>
 #include <raylib.h>
@@ -31,8 +30,11 @@ int main(void){
     Player player({100, 100});
     PlayerListener playerListener(player);
 
+    TextRenderer basicTextRenderer;
+    basicTextRenderer.setFontSize(20);
+
     TextModel playerPosText("[0000, 0000]");
-    Label playerPosLabel(playerPosText);
+    Label playerPosLabel(playerPosText, basicTextRenderer);
 
     Listener playerMovementListener([&player, &playerPosText](){
         playerPosText.setText("["+std::to_string(static_cast<int>(player.getPos().x))+", "+std::to_string(static_cast<int>(player.getPos().y))+"]");
@@ -41,9 +43,8 @@ int main(void){
 
     float runTime = 0;
     TextModel runTimeText(std::string(TextFormat("%4.4f", runTime)));
-    runTimeText.setFontSize(20);
-    Label runTimeLabel(runTimeText);
-    Label runTimeLabel2(runTimeText);
+    Label runTimeLabel(runTimeText, basicTextRenderer);
+    Label runTimeLabel2(runTimeText, basicTextRenderer);
 
     FrameListener runTimeListener([&runTime, &runTimeText](){
         runTime += GetFrameTime();
@@ -66,8 +67,7 @@ int main(void){
     std::ostringstream rangeStrStream;
     rangeModel.toStr(rangeStrStream);
     TextModel rangeText(rangeStrStream.str());
-    rangeText.setFontSize(20);
-    Label rangeLabel(rangeText);
+    Label rangeLabel(rangeText, basicTextRenderer);
 
     Listener rangeLabelListener([&rangeModel, &rangeText](){
         std::ostringstream rangeStrStream;
@@ -100,27 +100,27 @@ int main(void){
     ButtonModel dummyButtonModel;
 
     TextModel testButtonText("test button");
-    Label testButtonLabel(testButtonText);
+    Label testButtonLabel(testButtonText, basicTextRenderer);
     Button testButton(dummyButtonModel);
     testButton.add(testButtonLabel);
 
     TextModel clickButtonText("CLICK");
-    Label clickButtonLabel(clickButtonText);
+    Label clickButtonLabel(clickButtonText, basicTextRenderer);
     Button buttonClick(dummyButtonModel);
     buttonClick.add(clickButtonLabel);
 
     TextModel statusText("HELLO WORLD");
-    statusText.setFontSize(20);
-    Label statusLabel(statusText);
+    Label statusLabel(statusText, basicTextRenderer);
 
-    Label statusLabel2(statusText);
+    Label statusLabel2(statusText, basicTextRenderer);
 
     TextModel specialButtonText("I AM SPECIAL");
-    Label specialButtonLabel(specialButtonText);
+    Label specialButtonLabel(specialButtonText, basicTextRenderer);
     Button specialButton(dummyButtonModel);
     specialButton.add(specialButtonLabel);
 
     FPSLabel fpsLabel;
+    fpsLabel.getTextRenderer().setFontSize(20);
     InputListener fpsShowing([](){
         return IsKeyReleased(KeyboardKey::KEY_F);
     },
@@ -138,8 +138,8 @@ int main(void){
     fpsBox.SetBackgroundColor(DARKBROWN);
 
     TextModel inputModel;
-    inputModel.setFontSize(20);
-    TextInputBar textInput(inputModel, "phantom");
+    TextInputBar textInput(inputModel, basicTextRenderer);
+    textInput.setPhantomText("phantom");
 
     StackLayout statusLayout(false);
     Panel statusPanel(statusLayout);
@@ -162,23 +162,25 @@ int main(void){
     LayeredLayout centerLayout;
     Container centerPanel(centerLayout);
 
-    TextModel feur1("FEUR");
-    feur1.setFontSize(300);
-    feur1.setColor(BLUE);
-    feur1.setSpacing(10);
+    TextModel feur("FEUR");
 
-    TextModel feur2("FEUR");
-    feur2.setFontSize(200);
-    feur2.setColor(YELLOW);
-    feur2.setSpacing(5);
+    TextRenderer feur1Renderer;
+    feur1Renderer.setFontSize(300);
+    feur1Renderer.setColor(BLUE);
+    feur1Renderer.setSpacing(10);
 
-    TextModel feur3("FEUR");
-    feur3.setFontSize(100);
-    feur3.setColor(RED);
+    TextRenderer feur2Renderer;
+    feur2Renderer.setFontSize(200);
+    feur2Renderer.setColor(YELLOW);
+    feur2Renderer.setSpacing(5);
 
-    Label feur1Label(feur1);
-    Label feur2Label(feur2);
-    Label feur3Label(feur3);
+    TextRenderer feur3Renderer;
+    feur3Renderer.setFontSize(100);
+    feur3Renderer.setColor(RED);
+
+    Label feur1Label(feur, feur1Renderer);
+    Label feur2Label(feur, feur2Renderer);
+    Label feur3Label(feur, feur3Renderer);
 
     Canva mainCanva;
     mainCanva.subscribeDrawing([&player](){player.draw();});
@@ -189,9 +191,9 @@ int main(void){
     centerPanel.add(runTimeLabel, LayeredLayout::Constraints::FRONT);
     centerPanel.add(mainCanva, LayeredLayout::Constraints::FRONT);
 
-    Label smallLabel1(statusText);
-    Label smallLabel2(statusText);
-    Label smallLabel3(statusText);
+    Label smallLabel1(statusText, basicTextRenderer);
+    Label smallLabel2(statusText, basicTextRenderer);
+    Label smallLabel3(statusText, basicTextRenderer);
 
     Box middleBox;
     middleBox.add(smallLabel2);

@@ -3,7 +3,6 @@
 #include "button.hpp"
 #include "orientedComponent.hpp"
 #include "../model/boundedRangeModel.hpp"
-#include "../model/textModel.hpp"
 #include "label.hpp"
 
 class Slider : public OrientedComponent{
@@ -20,6 +19,7 @@ private:
     TextModel minusText;
     TextModel plusText;
     TextModel knobText;
+    TextRenderer buttonTextRenderer;
 
     Label minusLabel;
     Label plusLabel;
